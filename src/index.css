@@ -1,0 +1,66 @@
+body,
+html {
+  height: 100%;
+  background-color: rgb(240, 238, 238);
+}
+.wealth-calculator {
+  display: grid;
+  grid-template-columns: 49.5% 1% 49.5%;
+  padding: 3em;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.wealth-info {
+  width: 400px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50px 10px repeat(20, 30px);
+  padding-left: 1em;
+}
+.wealth-controller {
+  display: grid;
+  grid-template-rows: 55px 55px 55px 55px 55px;
+  padding: 1em;
+}
+.persons-list {
+  display: flex;
+  justify-self: start;
+}
+.wealth-list {
+  display: flex;
+  justify-self: end;
+}
+.vertical-line {
+  border-left: 2px solid black;
+  height: 320px;
+}
+hr {
+  display: block;
+  border: 0;
+  border-top: 2px solid black;
+  margin: 0 0;
+}
+.wealth-control-button {
+  height: 40px;
+  background-color: white;
+  border-width: 1px;
+  border-radius: 4px;
+  margin: 10px;
+}
+.total {
+  border-bottom: 2px solid black;
+  padding: 5px;
+  height: 20px;
+  width: 100%;
+  background-color: white;
+}
+.total-amount {
+  flex-direction: row-reverse;
+}
+.loader{
+  display: flex;
+  align-self: center;
+}
