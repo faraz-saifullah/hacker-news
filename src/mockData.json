@@ -1,0 +1,54 @@
+{
+    "allPosts" : [
+        {
+            "id": "rand1str",
+            "title": "What You Should Know Before Leaking a Zoom Meeting",
+            "link": "www.github.com/faraz-saifullah",
+            "comments": [],
+            "points": 10,
+            "postedBy": "faraz",
+            "postedTIme": 1611057656793,
+            "isOpened": false
+        },
+        {
+            "id": "rand2str",
+            "title": "What You Should Know Before Leaking a Zoom Meeting",
+            "link": "www.github.com/faraz-saifullah",
+            "comments": [],
+            "points": 10,
+            "postedBy": "faraz",
+            "postedTIme": 1611057656793,
+            "isOpened": false
+        },
+        {
+            "id": "rand3str",
+            "title": "What You Should Know Before Leaking a Zoom Meeting",
+            "link": "www.github.com/faraz-saifullah",
+            "comments": [],
+            "points": 10,
+            "postedBy": "faraz",
+            "postedTIme": 1611057656793,
+            "isOpened": false
+        },
+        {
+            "id": "rand4str",
+            "title": "What You Should Know Before Leaking a Zoom Meeting",
+            "link": "www.github.com/faraz-saifullah",
+            "comments": [],
+            "points": 10,
+            "postedBy": "faraz",
+            "postedTIme": 1611057656793,
+            "isOpened": false
+        },
+        {
+            "id": "rand5str",
+            "title": "What You Should Know Before Leaking a Zoom Meeting",
+            "link": "www.github.com/faraz-saifullah",
+            "comments": [],
+            "points": 10,
+            "postedBy": "faraz",
+            "postedTIme": 1611057656793,
+            "isOpened": false
+        }
+    ]
+}

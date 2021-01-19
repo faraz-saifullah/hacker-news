@@ -1,66 +1,45 @@
 body,
 html {
   height: 100%;
-  background-color: rgb(240, 238, 238);
-}
-.wealth-calculator {
-  display: grid;
-  grid-template-columns: 49.5% 1% 49.5%;
-  padding: 3em;
+  background-color: rgb(255, 255, 255);
 }
 .container {
   display: flex;
   justify-content: center;
   height: 100%;
 }
-.wealth-info {
-  width: 400px;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 50px 10px repeat(20, 30px);
-  padding-left: 1em;
-}
-.wealth-controller {
-  display: grid;
-  grid-template-rows: 55px 55px 55px 55px 55px;
-  padding: 1em;
-}
-.persons-list {
-  display: flex;
-  justify-self: start;
-}
-.wealth-list {
-  display: flex;
-  justify-self: end;
-}
-.vertical-line {
-  border-left: 2px solid black;
-  height: 320px;
-}
-hr {
-  display: block;
-  border: 0;
-  border-top: 2px solid black;
-  margin: 0 0;
-}
-.wealth-control-button {
-  height: 40px;
-  background-color: white;
-  border-width: 1px;
-  border-radius: 4px;
-  margin: 10px;
-}
-.total {
-  border-bottom: 2px solid black;
-  padding: 5px;
+.hn-navbar {
+  background-color: rgb(255, 99, 43);
   height: 20px;
+}
+.posts-list {
+  display: grid;
   width: 100%;
-  background-color: white;
+  background-color: rgb(246, 246, 239);
 }
-.total-amount {
-  flex-direction: row-reverse;
+.post-line {
+  display: inline;
+  float: left;
+  margin-right: 0.25em;
 }
-.loader{
-  display: flex;
-  align-self: center;
+.post-title-unclicked {
+  color: black;
+}
+.post-title-clicked {
+  color: gray;
+}
+.post-serial-number{
+  margin-left: 0.5em;
+  color: gray;
+}
+.post-second-line {
+  color: gray;
+  margin-left: 3em;
+  font-size: x-small;
+}
+.post-domain-name {
+  color: gray;
+}
+.underlineHover:hover {
+  text-decoration: underline;
 }

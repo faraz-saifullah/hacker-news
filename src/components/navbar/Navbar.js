@@ -5,12 +5,10 @@ import Context from '../../Context';
 export default function Navbar() {
   const { user, logout } = useContext(Context);
   return (
-    <nav className="navbar container">
-      <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
-          <b className="navbar-item is-size-6 ">Hacker News</b>
-        </Link>
-      </div>
+    <nav className="hn-navbar container">
+      <Link to="/" className="navbar-item">
+        <b className="navbar-item">Hacker News</b>
+      </Link>
       <div className={'navbar-menu'}>
         <Link to="/login" className="navbar-item">
           welcome
@@ -39,16 +37,16 @@ export default function Navbar() {
         <Link to="/profile" className="navbar-item">
           submit
         </Link>
-        {user &&
-        <>
-          <a href="/login" className="navbar-item">
-            {user?.username}
-          </a>
-          <button className="navbar-item" onClick={logout}>
-            logout
-          </button>
-        </>
-        }
+        {user && (
+          <>
+            <a href="/login" className="navbar-item">
+              {user?.username} ({2})
+            </a>
+            <button className="navbar-item" onClick={logout}>
+              logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
