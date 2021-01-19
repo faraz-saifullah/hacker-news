@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { findTimeDifference, getDomainName } from '../../utils/utilities';
 
-export default function PostListItem({ updatePosts, serialNumber, post }) {
+export default function PostListItem({
+  hidePost,
+  updatePosts,
+  serialNumber,
+  post,
+}) {
   const [timeDiff, setTimeDiff] = useState('');
   const [postTitleClassName, setPostTitleClassName] = useState(
     'post-title-unclicked',
@@ -25,6 +30,10 @@ export default function PostListItem({ updatePosts, serialNumber, post }) {
     updatePosts(serialNumber - 1, post);
     setIsUpvoted(false);
   }, [post, updatePosts, serialNumber]);
+
+  const hide = React.useCallback(() => {
+    hidePost(serialNumber - 1);
+  }, [hidePost, serialNumber]);
 
   useEffect(() => {
     let timeDiff = findTimeDifference(post.postedTIme);
@@ -56,7 +65,9 @@ export default function PostListItem({ updatePosts, serialNumber, post }) {
             &#124;&nbsp;unvote
           </p>
         )}
-        <p className="post-line underlineHover">&#124;&nbsp;hide</p>
+        <p onClick={hide} className="post-line underlineHover">
+          &#124;&nbsp;hide
+        </p>
         <p className="post-line underlineHover">
           &#124;&nbsp;{post.comments.length} comments
         </p>

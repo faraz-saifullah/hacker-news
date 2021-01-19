@@ -8,9 +8,17 @@ export default function Home() {
     (index, post) => {
       let newPosts = [...posts];
       newPosts[index] = post;
-      console.log(newPosts);
       setPosts(newPosts);
       window.localStorage.setItem('allPosts', JSON.stringify(newPosts));
+    },
+    [posts],
+  );
+
+  const hidePost = React.useCallback(
+    (index) => {
+      let newPosts = [...posts];
+      newPosts.splice(index, 1);
+      setPosts(newPosts);
     },
     [posts],
   );
@@ -22,10 +30,11 @@ export default function Home() {
 
   return (
     <div className="container">
-      {posts ? (
+      {posts?.length !== 0 ? (
         <div className="posts-list">
           {posts.map((post, index) => (
             <PostListItem
+              hidePost={hidePost}
               updatePosts={updatePosts}
               key={post.id}
               serialNumber={index + 1}
