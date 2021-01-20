@@ -111,6 +111,7 @@ export default function PostItem({
               className: 'post-line underlineHover button-link',
               text: 'favourite',
             },
+            //TODO: Implement total thread length instead of just comments length
             {
               condition: true,
               func: goToPost,

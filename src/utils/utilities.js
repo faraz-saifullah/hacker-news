@@ -34,3 +34,35 @@ export function getDomainName(postLink) {
   link = link.split('/')[0];
   return link;
 }
+
+export function findPostById(postId) {
+  let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
+  return allPosts.find((post) => post.id === postId);
+}
+
+export function updatePostInStorage(postId, newPost) {
+  let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
+  let oldPost = allPosts.find((post) => post.id === postId);
+  let index = allPosts.indexOf(oldPost);
+  allPosts[index] = newPost;
+  window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
+}
+
+export function makeCommentBody(username, commentText) {
+  return {
+    id: Math.floor(Math.random() * 90000) + 10000,
+    commentedBy: username,
+    text: commentText,
+    postedTime: Date.now(),
+    comments: [],
+  };
+}
+
+export function getThreadLength(comments) {
+  let total = 0;
+  comments.map((comment) => {
+    total += 1;
+    return (total += getThreadLength(comment.comments));
+  });
+  return total;
+}

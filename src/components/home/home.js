@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PostListItem from '../posts/postLIstItem';
+import PostItem from '../posts/postItem';
 
-export default function Home() {
+export default function Home(props) {
   const [posts, setPosts] = useState([]);
 
   const updatePosts = React.useCallback(
@@ -33,7 +33,9 @@ export default function Home() {
       {posts?.length !== 0 ? (
         <div className="posts-list">
           {posts.map((post, index) => (
-            <PostListItem
+            <PostItem
+              isListItem={true}
+              history={props.history}
               hidePost={hidePost}
               updatePosts={updatePosts}
               key={post.id}

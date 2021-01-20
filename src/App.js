@@ -3,8 +3,10 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Login from './components/auth/login';
 import { CircularProgress } from '@material-ui/core';
 import Context from './Context';
+import Post from './components/posts/post';
 import CreateClassroom from './components/home/home';
 import Navbar from './components/navbar/Navbar';
+// import { allPosts } from './mockData.json';
 
 function routeToComponent(component, user) {
   if (user) {
@@ -20,6 +22,8 @@ export default function App() {
 
   useEffect(() => {
     let userDetails = JSON.parse(window.localStorage.getItem('user'));
+    // window.localStorage.setItem('user', null);
+    // window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
     setIsLoggingIn(false);
     setUser(userDetails);
   }, []);
@@ -59,6 +63,7 @@ export default function App() {
               path="/"
               component={routeToComponent(CreateClassroom, user)}
             />
+            <Route exact path="/post/:postId" component={Post} />
           </Switch>
         </div>
       </Router>
