@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom';
 import Context from '../../Context';
 
 export default function Navbar() {
-  const { user, logout } = useContext(Context);
+  const { user, setUser } = useContext(Context);
+
+  const logout = React.useCallback(() => {
+    setUser(null);
+    window.localStorage.setItem('user', null);
+  }, [setUser]);
+
   return (
     <nav className="hn-navbar container">
       <Link to="/" className="navbar-item">

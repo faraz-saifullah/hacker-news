@@ -6,7 +6,7 @@
             "link": "www.github.com/faraz-saifullah",
             "comments": [{
                 "id": "17483",
-                "commentedBy": "faraz",
+                "commentedBy": "faraz1",
                 "text": "This is the very first comment I posted",
                 "postedTime": 1611057656793,
                 "comments": [{
@@ -28,7 +28,7 @@
             "link": "www.github.com/faraz-saifullah",
             "comments": [],
             "points": 10,
-            "postedBy": "faraz",
+            "postedBy": "faraz1",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
@@ -38,7 +38,7 @@
             "link": "www.github.com/faraz-saifullah",
             "comments": [],
             "points": 10,
-            "postedBy": "faraz",
+            "postedBy": "faraz1",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
@@ -61,6 +61,35 @@
             "postedBy": "faraz",
             "postedTIme": 1611057656793,
             "isOpened": false
+        }
+    ],
+    "allUsers" : [
+        {
+            "username" : "faraz",
+            "password" : "pass123",
+            "timeCreated" : 1611057656793,
+            "about" : "This is my about section",
+            "submissions" : ["55924", "94617", "62980"],
+            "comments" : ["20498"],
+            "favourites": []
+        },
+        {
+            "username" : "faraz1",
+            "password" : "pass123",
+            "timeCreated" : 1611058656793,
+            "about" : "This is my about section",
+            "submissions" : ["60366"],
+            "comments" : ["17483"],
+            "favourites": []
+        },
+        {
+            "username" : "faraz2",
+            "password" : "pass123",
+            "timeCreated" : 1611059656793,
+            "about" : "This is my about section",
+            "submissions" : ["38432"],
+            "comments" : [],
+            "favourites": []
         }
     ]
 }

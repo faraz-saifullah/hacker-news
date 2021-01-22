@@ -1,13 +1,15 @@
 import React, { useContext, useState, Fragment } from 'react';
 import Context from '../../Context';
+import { findUser } from '../../utils/utilities';
 import { validateLoginInput } from './validation';
 
 export default function LoginForm() {
+  const { setUser } = useContext(Context);
+  const { setIsLoggingIn } = useContext(Context);
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoggingIn, toggleLogin] = useState(false);
-  const { login } = useContext(Context);
 
   const handleChange = React.useCallback((event) => {
     switch (event.target.name) {
@@ -19,6 +21,23 @@ export default function LoginForm() {
         break;
     }
   }, []);
+
+  const login = React.useCallback(
+    (username, password) => {
+      setIsLoggingIn(true);
+      setTimeout(() => {
+        let userDetails = findUser(username, password);
+        if (!userDetails) {
+          setIsLoggingIn(false);
+          return 'Invalid login credentials';
+        }
+        setUser(userDetails);
+        setIsLoggingIn(false);
+        window.localStorage.setItem('user', JSON.stringify(userDetails));
+      }, 1000);
+    },
+    [setIsLoggingIn, setUser],
+  );
 
   const handleSubmit = React.useCallback(
     (event) => {
@@ -32,10 +51,7 @@ export default function LoginForm() {
         return;
       }
       toggleLogin(true);
-      login({
-        username,
-        password,
-      });
+      login(username, password);
     },
     [username, password, login],
   );

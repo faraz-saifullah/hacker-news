@@ -66,3 +66,11 @@ export function getThreadLength(comments) {
   });
   return total;
 }
+
+export function findUser(username, password) {
+  let allUsers = JSON.parse(window.localStorage.getItem('allUsers'));
+  let user = allUsers.find(
+    (user) => user.username === username && user.password === password,
+  );
+  return user;
+}

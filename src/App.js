@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import Login from './components/auth/login';
+import Login from './components/auth/Login';
 import { CircularProgress } from '@material-ui/core';
 import Context from './Context';
 import Post from './components/posts/post';
 import CreateClassroom from './components/home/home';
 import Navbar from './components/navbar/Navbar';
-// import { allPosts } from './mockData.json';
+import UserProfile from './components/user/userProfile';
+import { findUser } from './utils/utilities';
+// import { allPosts, allUsers } from './mockData.json';
 
 function routeToComponent(component, user) {
   if (user) {
@@ -24,22 +26,9 @@ export default function App() {
     let userDetails = JSON.parse(window.localStorage.getItem('user'));
     // window.localStorage.setItem('user', null);
     // window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
+    // window.localStorage.setItem('allUsers', JSON.stringify(allUsers));
     setIsLoggingIn(false);
     setUser(userDetails);
-  }, []);
-
-  const login = React.useCallback((userDetails) => {
-    setIsLoggingIn(true);
-    setTimeout(() => {
-      setUser(userDetails);
-      setIsLoggingIn(false);
-    }, 1000);
-    window.localStorage.setItem('user', JSON.stringify(userDetails));
-  }, []);
-
-  const logout = React.useCallback(() => {
-    setUser(null);
-    window.localStorage.setItem('user', null);
   }, []);
 
   return isLoggingIn ? (
@@ -50,8 +39,8 @@ export default function App() {
     <Context.Provider
       value={{
         user: user,
-        login: login,
-        logout: logout,
+        setUser: setUser,
+        setIsLoggingIn: setIsLoggingIn,
       }}
     >
       <Router ref={routerRef}>
@@ -63,7 +52,8 @@ export default function App() {
               path="/"
               component={routeToComponent(CreateClassroom, user)}
             />
-            <Route exact path="/post/:postId" component={Post} />
+            <Route exact path="/posts/:postId" component={Post} />
+            <Route exact path="/users/:username" component={UserProfile} />
           </Switch>
         </div>
       </Router>

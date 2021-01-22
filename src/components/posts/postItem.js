@@ -24,7 +24,7 @@ export default function PostItem({
   }, [post.link]);
 
   const goToPost = React.useCallback(() => {
-    history.push(`/post/${post.id}`);
+    history.push(`/posts/${post.id}`);
   }, [history, post.id]);
 
   const upvote = React.useCallback(() => {
