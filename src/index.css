@@ -13,6 +13,7 @@ html {
   height: 20px;
 }
 .posts-list {
+  tab-size: 2;
   display: grid;
   width: 100%;
   background-color: rgb(246, 246, 239);
@@ -80,4 +81,12 @@ html {
 .comment-second-line{
   color: black;
   font-size: small;
+}
+.profile-page-button {
+  display: flex;
+  align-self: start;
+  margin-left: 5em;
+  border: none;
+  outline: none;
+  background-color: transparent;
 }

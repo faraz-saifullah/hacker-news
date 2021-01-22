@@ -6,7 +6,7 @@ import Context from './Context';
 import Post from './components/posts/post';
 import CreateClassroom from './components/home/home';
 import Navbar from './components/navbar/Navbar';
-// import UserProfile from './components/user/userProfile';
+import UserProfile from './components/user/userProfile';
 // import { findUser } from './utils/utilities';
 // import { allPosts, allUsers, allComments } from './mockData.json';
 
@@ -54,7 +54,7 @@ export default function App() {
               component={routeToComponent(CreateClassroom, user)}
             />
             <Route exact path="/posts/:postId" component={Post} />
-            {/* <Route exact path="/users/:username" component={UserProfile} /> */}
+            <Route exact path="/users/:username" component={UserProfile} />
           </Switch>
         </div>
       </Router>
