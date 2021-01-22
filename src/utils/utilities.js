@@ -40,6 +40,11 @@ export function findPostById(postId) {
   return allPosts.find((post) => post.id === postId);
 }
 
+export function findCommentById(commentId) {
+  let allComments = JSON.parse(window.localStorage.getItem('allComments'));
+  return allComments.find((comment) => comment.id === commentId);
+}
+
 export function updatePostInStorage(postId, newPost) {
   let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
   let oldPost = allPosts.find((post) => post.id === postId);
@@ -48,9 +53,23 @@ export function updatePostInStorage(postId, newPost) {
   window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
 }
 
+export function updateCommentInStorage(commentId, newComment) {
+  let allComments = JSON.parse(window.localStorage.getItem('allComments'));
+  let oldComment = allComments.find((comment) => comment.id === commentId);
+  let index = allComments.indexOf(oldComment);
+  allComments[index] = newComment;
+  window.localStorage.setItem('allComments', JSON.stringify(allComments));
+}
+
+export function addNewCommentInStorage(newComment) {
+  let allComments = JSON.parse(window.localStorage.getItem('allComments'));
+  allComments.push(newComment);
+  window.localStorage.setItem('allComments', JSON.stringify(allComments));
+}
+
 export function makeCommentBody(username, commentText) {
   return {
-    id: Math.floor(Math.random() * 90000) + 10000,
+    id: `${Math.floor(Math.random() * 90000) + 10000}`,
     commentedBy: username,
     text: commentText,
     postedTime: Date.now(),
@@ -60,8 +79,11 @@ export function makeCommentBody(username, commentText) {
 
 export function getThreadLength(comments) {
   let total = 0;
-  comments.map((comment) => {
+  comments.map((commentId) => {
+    let comment = findCommentById(commentId);
+    // console.log(comment);
     total += 1;
+    // return total;
     return (total += getThreadLength(comment.comments));
   });
   return total;

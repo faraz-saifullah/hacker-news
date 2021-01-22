@@ -4,6 +4,8 @@ import {
   findPostById,
   updatePostInStorage,
   makeCommentBody,
+  findCommentById,
+  addNewCommentInStorage,
 } from '../../utils/utilities';
 import Comment from '../comment/comment';
 import Context from '../../Context';
@@ -19,8 +21,10 @@ export default function Post(props) {
 
   const addComment = React.useCallback(() => {
     let newPost = { ...post };
-    newPost.comments.push(makeCommentBody(user.username, commentText));
+    let newComment = makeCommentBody(user.username, commentText);
+    newPost.comments.push(newComment.id);
     updatePostInStorage(newPost.id, newPost);
+    addNewCommentInStorage(newComment);
     setPost(newPost);
     setCommentText('');
   }, [commentText, post, user.username]);
@@ -41,8 +45,12 @@ export default function Post(props) {
           >
             add comment
           </button>
-          {post.comments.map((comment) => (
-            <Comment user={user} key={comment.id} comment={comment} />
+          {post.comments.map((commentId) => (
+            <Comment
+              user={user}
+              key={commentId}
+              comment={findCommentById(commentId)}
+            />
           ))}
         </div>
       ) : (

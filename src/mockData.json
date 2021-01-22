@@ -4,19 +4,7 @@
             "id": "55924",
             "title": "What You Should Know Before Leaking a Zoom Meeting",
             "link": "www.github.com/faraz-saifullah",
-            "comments": [{
-                "id": "17483",
-                "commentedBy": "faraz1",
-                "text": "This is the very first comment I posted",
-                "postedTime": 1611057656793,
-                "comments": [{
-                    "id": "20498",
-                    "commentedBy": "faraz",
-                    "text": "This is the second comment I posted",
-                    "postedTime": 1611057656793,
-                    "comments": []
-                }]
-            }],
+            "comments": ["17483"],
             "points": 10,
             "postedBy": "faraz",
             "postedTIme": 1611057656793,
@@ -90,6 +78,22 @@
             "submissions" : ["38432"],
             "comments" : [],
             "favourites": []
+        }
+    ],
+    "allComments" : [
+        {
+            "id": "17483",
+            "commentedBy": "faraz1",
+            "text": "This is the very first comment I posted",
+            "postedTime": 1611057656793,
+            "comments": ["20498"]
+        },
+        {
+            "id": "20498",
+            "commentedBy": "faraz",
+            "text": "This is the second comment I posted",
+            "postedTime": 1611057656793,
+            "comments": []
         }
     ]
 }
