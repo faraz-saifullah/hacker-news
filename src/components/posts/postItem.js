@@ -56,9 +56,9 @@ export default function PostItem({
   }, []);
 
   useEffect(() => {
-    let timeDiff = findTimeDifference(post.postedTIme);
+    let timeDiff = findTimeDifference(post.postedTime);
     setTimeDiff(timeDiff);
-  }, [post.postedTIme]);
+  }, [post.postedTime]);
 
   return (
     <>

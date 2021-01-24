@@ -16,10 +16,7 @@ export default function Navbar() {
         <b className="navbar-item">Hacker News</b>
       </Link>
       <div className={'navbar-menu'}>
-        <Link to="/login" className="navbar-item">
-          welcome
-        </Link>
-        <Link to="/create-classroom" className="navbar-item">
+        <Link to="/newest" className="navbar-item">
           new
         </Link>
         <Link to="/" className="navbar-item">

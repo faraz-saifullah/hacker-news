@@ -8,6 +8,8 @@ import Home from './components/home/home';
 import Navbar from './components/navbar/Navbar';
 import UserProfile from './components/user/userProfile';
 import Submit from './components/submit/submit';
+import Newest from './components/newest/newest';
+
 // import { findUser } from './utils/utilities';
 // import { allPosts, allUsers, allComments } from './mockData.json';
 
@@ -52,6 +54,7 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
+            <Route exact path="/newest" component={Newest} />
             <Route
               exact
               path="/submit"
