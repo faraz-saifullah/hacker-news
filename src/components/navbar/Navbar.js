@@ -40,7 +40,7 @@ export default function Navbar() {
         <Link to="/profile" className="navbar-item">
           jobs
         </Link>
-        <Link to="/profile" className="navbar-item">
+        <Link to="/submit" className="navbar-item">
           submit
         </Link>
         {user && (

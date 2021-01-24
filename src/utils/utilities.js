@@ -67,6 +67,12 @@ export function addNewCommentInStorage(newComment) {
   window.localStorage.setItem('allComments', JSON.stringify(allComments));
 }
 
+export function addNewPostInStorage(newPost) {
+  let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
+  allPosts.push(newPost);
+  window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
+}
+
 export function makeCommentBody(username, commentText) {
   return {
     id: `${Math.floor(Math.random() * 90000) + 10000}`,
@@ -81,9 +87,7 @@ export function getThreadLength(comments) {
   let total = 0;
   comments.map((commentId) => {
     let comment = findCommentById(commentId);
-    // console.log(comment);
     total += 1;
-    // return total;
     return (total += getThreadLength(comment.comments));
   });
   return total;
@@ -95,4 +99,26 @@ export function findUser(username, password) {
     (user) => user.username === username && user.password === password,
   );
   return user;
+}
+
+export function createPost(username, title, url, text) {
+  let comments = [];
+  let newPost = {};
+  newPost.comments = comments;
+  if (text) {
+    let comment = makeCommentBody(username, text);
+    addNewCommentInStorage(comment);
+    newPost.comments.push(comment.id);
+  }
+  newPost = {
+    ...newPost,
+    id: `${Math.floor(Math.random() * 90000) + 10000}`,
+    title: title,
+    link: url,
+    points: 0,
+    postedBy: username,
+    postedTIme: Date.now(),
+    isOpened: false,
+  };
+  return newPost;
 }

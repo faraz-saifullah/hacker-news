@@ -7,6 +7,7 @@ import Post from './components/posts/post';
 import Home from './components/home/home';
 import Navbar from './components/navbar/Navbar';
 import UserProfile from './components/user/userProfile';
+import Submit from './components/submit/submit';
 // import { findUser } from './utils/utilities';
 // import { allPosts, allUsers, allComments } from './mockData.json';
 
@@ -48,9 +49,14 @@ export default function App() {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route exact path="/" component={routeToComponent(Home, user)} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
+            <Route
+              exact
+              path="/submit"
+              component={routeToComponent(Submit, user)}
+            />
           </Switch>
         </div>
       </Router>

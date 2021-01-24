@@ -55,6 +55,7 @@ html {
 .comment-input-text{
   height: 8em;
   width: 40em;
+  margin-top: 0.4em;
 }
 .comment-input-button{
   font-family: monospace;
@@ -89,4 +90,18 @@ html {
   border: none;
   outline: none;
   background-color: transparent;
+}
+.post-input-text{
+  height: 2em;
+  width: 40em;
+  vertical-align: text-top;
+  margin-top: 0.4em;
+}
+.post-input-button{
+  font-family: monospace;
+  margin-bottom: 2em;
+  margin-left: 4em;
+  font-size: 10pt;
+  height: 1.5em;
+  width: 6em;
 }
