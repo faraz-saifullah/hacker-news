@@ -4,7 +4,7 @@ import Login from './components/auth/Login';
 import { CircularProgress } from '@material-ui/core';
 import Context from './Context';
 import Post from './components/posts/post';
-import CreateClassroom from './components/home/home';
+import Home from './components/home/home';
 import Navbar from './components/navbar/Navbar';
 import UserProfile from './components/user/userProfile';
 // import { findUser } from './utils/utilities';
@@ -48,11 +48,7 @@ export default function App() {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route
-              exact
-              path="/"
-              component={routeToComponent(CreateClassroom, user)}
-            />
+            <Route exact path="/" component={routeToComponent(Home, user)} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
           </Switch>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function LinkButtons({ buttons }) {
+export default function PostButtons({ buttons }) {
   return buttons.map(
     (button) =>
       button.condition && (

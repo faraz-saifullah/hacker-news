@@ -1,27 +1,27 @@
 export function findTimeDifference(time) {
   let postedOn = new Date(time);
   let current = new Date(Date.now());
-  let yearDiff = current.getFullYear() - postedOn.getFullYear();
+  let yearDiff = Math.abs(current.getFullYear() - postedOn.getFullYear());
   if (yearDiff !== 0) {
     return `${yearDiff} years`;
   }
-  let monthDiff = current.getMonth() - postedOn.getMonth();
+  let monthDiff = Math.abs(current.getMonth() - postedOn.getMonth());
   if (monthDiff !== 0) {
     return `${monthDiff} months`;
   }
-  let dayDiff = current.getDay() - postedOn.getDay();
+  let dayDiff = Math.abs(current.getDay() - postedOn.getDay());
   if (dayDiff !== 0) {
     return `${dayDiff} days`;
   }
-  let hoursDiff = current.getHours() - postedOn.getHours();
+  let hoursDiff = Math.abs(current.getHours() - postedOn.getHours());
   if (hoursDiff !== 0) {
     return `${hoursDiff} hours`;
   }
-  let minutesDiff = current.getMinutes() - postedOn.getMinutes();
+  let minutesDiff = Math.abs(current.getMinutes() - postedOn.getMinutes());
   if (minutesDiff !== 0) {
     return `${minutesDiff} minutes`;
   }
-  let secsDiff = current.getSeconds() - postedOn.getSeconds();
+  let secsDiff = Math.abs(current.getSeconds() - postedOn.getSeconds());
   if (secsDiff !== 0) {
     return `${secsDiff} seconds`;
   }

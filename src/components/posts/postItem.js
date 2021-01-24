@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { findTimeDifference, getDomainName } from '../../utils/utilities';
-import LinkButtons from '../button/linkButtons';
+import PostButtons from '../button/postButtons';
+import LinkButton from '../button/linkButton';
 
 export default function PostItem({
   isListItem,
@@ -79,13 +80,16 @@ export default function PostItem({
       </div>
       <div className="post-second-line">
         <p className="post-line">{post.points} points by</p>
-        <button className="post-line underlineHover button-link">
-          {post.postedBy}
-        </button>
+        <LinkButton
+          className={'post-line underlineHover button-link'}
+          buttonText={post.postedBy}
+          history={history}
+          route={`users/${post.postedBy}`}
+        />
         <button className="post-line underlineHover button-link">
           &#124; {timeDiff} ago
         </button>
-        <LinkButtons
+        <PostButtons
           buttons={[
             {
               condition: isUpvoted,
