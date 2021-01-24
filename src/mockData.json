@@ -5,47 +5,47 @@
             "title": "What You Should Know Before Leaking a Zoom Meeting",
             "link": "www.github.com/faraz-saifullah",
             "comments": ["17483"],
-            "points": 10,
+            "points": 0,
             "postedBy": "faraz",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
         {
             "id": "60366",
-            "title": "What You Should Know Before Leaking a Zoom Meeting",
-            "link": "www.github.com/faraz-saifullah",
+            "title": "Deskreen – Turn any device with a web browser to a second computer screen ",
+            "link": "https://github.com/pavlobu/deskreen",
             "comments": [],
-            "points": 10,
+            "points": 0,
             "postedBy": "faraz1",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
         {
             "id": "38432",
-            "title": "What You Should Know Before Leaking a Zoom Meeting",
-            "link": "www.github.com/faraz-saifullah",
+            "title": "Racket Compiler and Runtime Status",
+            "link": "https://blog.racket-lang.org/2021/01/racket-status.html",
             "comments": [],
-            "points": 10,
+            "points": 0,
             "postedBy": "faraz1",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
         {
             "id": "94617",
-            "title": "What You Should Know Before Leaking a Zoom Meeting",
-            "link": "www.github.com/faraz-saifullah",
+            "title": "Our infrastructure is being built based on past climate data",
+            "link": "https://www.vice.com/en/article/jgx8y8/our-infrastructure-is-being-built-for-a-climate-thats-already-gone",
             "comments": [],
-            "points": 10,
+            "points": 0,
             "postedBy": "faraz",
             "postedTIme": 1611057656793,
             "isOpened": false
         },
         {
             "id": "62980",
-            "title": "What You Should Know Before Leaking a Zoom Meeting",
-            "link": "www.github.com/faraz-saifullah",
+            "title": "Delta Chat – decentralized chat via email",
+            "link": "https://delta.chat/en/",
             "comments": [],
-            "points": 10,
+            "points": 0,
             "postedBy": "faraz",
             "postedTIme": 1611057656793,
             "isOpened": false
@@ -86,6 +86,7 @@
             "commentedBy": "faraz1",
             "text": "This is the very first comment I posted",
             "postedTime": 1611057656793,
+            "points": 0,
             "comments": ["20498"]
         },
         {
@@ -93,6 +94,7 @@
             "commentedBy": "faraz",
             "text": "This is the second comment I posted",
             "postedTime": 1611057656793,
+            "points": 0,
             "comments": []
         }
     ]

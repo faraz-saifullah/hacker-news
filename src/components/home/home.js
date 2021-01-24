@@ -4,16 +4,6 @@ import PostItem from '../posts/postItem';
 export default function Home(props) {
   const [posts, setPosts] = useState([]);
 
-  const updatePosts = React.useCallback(
-    (index, post) => {
-      let newPosts = [...posts];
-      newPosts[index] = post;
-      setPosts(newPosts);
-      window.localStorage.setItem('allPosts', JSON.stringify(newPosts));
-    },
-    [posts],
-  );
-
   const hidePost = React.useCallback(
     (index) => {
       let newPosts = [...posts];
@@ -37,7 +27,6 @@ export default function Home(props) {
               isListItem={true}
               history={props.history}
               hidePost={hidePost}
-              updatePosts={updatePosts}
               key={post.id}
               serialNumber={index + 1}
               post={post}

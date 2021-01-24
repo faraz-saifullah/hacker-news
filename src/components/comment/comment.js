@@ -7,6 +7,7 @@ import {
   updateCommentInStorage,
   getThreadLength,
 } from '../../utils/utilities';
+import upvoteSymbol from '../../grayarrow.gif';
 
 export default function Comment({ user, match, comment }) {
   const [timeDiff, setTimeDiff] = useState('');
@@ -15,6 +16,7 @@ export default function Comment({ user, match, comment }) {
   const [replyText, setReplyText] = useState('');
   const [isThreadHidden, setIsThreadHidden] = useState(false);
   const [threadLength, setThreadLength] = useState('');
+  const [isUpvoted, setIsUpVoted] = useState(false);
 
   const updateReplyText = React.useCallback((event) => {
     setReplyText(event.target.value);
@@ -32,6 +34,20 @@ export default function Comment({ user, match, comment }) {
     setIsReplying(false);
     setReplyText('');
   }, []);
+
+  const upVote = React.useCallback(() => {
+    let newComment = { ...comment };
+    newComment.points += 1;
+    updateCommentInStorage(newComment.id, newComment);
+    setIsUpVoted(true);
+  }, [comment]);
+
+  const unVote = React.useCallback(() => {
+    let newComment = { ...comment };
+    newComment.points -= 1;
+    updateCommentInStorage(newComment.id, newComment);
+    setIsUpVoted(false);
+  }, [comment]);
 
   const addReplyToThread = React.useCallback(() => {
     let newThread = { ...thread };
@@ -53,19 +69,40 @@ export default function Comment({ user, match, comment }) {
   return (
     <div className="comment-body">
       <div className="comment-first-line">
-        <button className="post-line button-link">&#8679;</button>
-        <button className="post-line button-link underlineHover">
+        {!isUpvoted && (
+          <img
+            onClick={upVote}
+            className="comment-upvote post-line"
+            src={upvoteSymbol}
+            alt="upvote"
+          />
+        )}
+        <button className="post-line comment-button-link underlineHover">
           {thread.commentedBy}
         </button>
-        <button className="post-line button-link underlineHover">
+        <button className="post-line comment-button-link underlineHover">
           {timeDiff} ago
         </button>
+        {isUpvoted && (
+          <button
+            onClick={unVote}
+            className="post-line comment-button-link underlineHover"
+          >
+            unvote
+          </button>
+        )}
         {isThreadHidden ? (
-          <button onClick={toggleThread} className="post-line button-link">
+          <button
+            onClick={toggleThread}
+            className="post-line comment-button-link"
+          >
             [{threadLength + 1} more]
           </button>
         ) : (
-          <button onClick={toggleThread} className="post-line button-link">
+          <button
+            onClick={toggleThread}
+            className="post-line comment-button-link"
+          >
             [-]
           </button>
         )}

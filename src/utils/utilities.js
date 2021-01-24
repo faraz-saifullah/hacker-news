@@ -79,6 +79,7 @@ export function makeCommentBody(username, commentText) {
     commentedBy: username,
     text: commentText,
     postedTime: Date.now(),
+    points: 0,
     comments: [],
   };
 }

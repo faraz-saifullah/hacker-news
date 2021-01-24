@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { findTimeDifference, getDomainName } from '../../utils/utilities';
+import {
+  findTimeDifference,
+  getDomainName,
+  updatePostInStorage,
+} from '../../utils/utilities';
 import PostButtons from '../button/postButtons';
 import LinkButton from '../button/linkButton';
+import upvoteSymbol from '../../grayarrow.gif';
 
 export default function PostItem({
   isListItem,
   history,
   hidePost,
-  updatePosts,
   serialNumber,
   post,
 }) {
@@ -30,19 +34,15 @@ export default function PostItem({
 
   const upvote = React.useCallback(() => {
     post.points += 1;
-    if (isListItem) {
-      updatePosts(serialNumber - 1, post);
-    }
+    updatePostInStorage(post.id, post);
     setIsUpvoted(true);
-  }, [isListItem, post, updatePosts, serialNumber]);
+  }, [post]);
 
   const unvote = React.useCallback(() => {
     post.points -= 1;
-    if (isListItem) {
-      updatePosts(serialNumber - 1, post);
-    }
+    updatePostInStorage(post.id, post);
     setIsUpvoted(false);
-  }, [isListItem, post, updatePosts, serialNumber]);
+  }, [post]);
 
   const hide = React.useCallback(() => {
     setIsHidden(true);
@@ -67,9 +67,12 @@ export default function PostItem({
           <p className="post-line post-serial-number">{serialNumber}. </p>
         )}
         {!isUpvoted && (
-          <p onClick={upvote} className="post-line">
-            &#8679;
-          </p>
+          <img
+            onClick={upvote}
+            className="post-upvote post-line"
+            src={upvoteSymbol}
+            alt="loading..."
+          />
         )}
         <p className={`post-line  ${postTitleClassName}`} onClick={goToLink}>
           {post.title}
