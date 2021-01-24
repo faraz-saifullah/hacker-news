@@ -118,7 +118,7 @@ export function createPost(username, title, url, text) {
     link: url,
     points: 0,
     postedBy: username,
-    postedTIme: Date.now(),
+    postedTime: Date.now(),
     isOpened: false,
   };
   return newPost;
