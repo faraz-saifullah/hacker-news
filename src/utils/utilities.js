@@ -123,3 +123,31 @@ export function createPost(username, title, url, text) {
   };
   return newPost;
 }
+
+export function getPostsOfUser(username, type) {
+  let user = getUserByUsername(username);
+  let posts = [];
+  switch (type) {
+    case 'favourites':
+      user.favourites.map((postId) => {
+        let post = findPostById(postId);
+        return posts.push(post);
+      });
+      break;
+
+    default:
+      user.submissions.map((postId) => {
+        let post = findPostById(postId);
+        return posts.push(post);
+      });
+      break;
+  }
+
+  return posts;
+}
+
+export function getUserByUsername(username) {
+  let allUsers = JSON.parse(window.localStorage.getItem('allUsers'));
+  let user = allUsers.find((user) => user.username === username);
+  return user;
+}

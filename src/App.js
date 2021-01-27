@@ -9,6 +9,8 @@ import Navbar from './components/navbar/Navbar';
 import UserProfile from './components/user/userProfile';
 import Submit from './components/submit/submit';
 import Newest from './components/newest/newest';
+import Favourites from './components/favourite/favourites';
+import Submissions from './components/submissions/submissions';
 
 // import { findUser } from './utils/utilities';
 // import { allPosts, allUsers, allComments } from './mockData.json';
@@ -54,6 +56,12 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
+            <Route exact path="/favourites/:username" component={Favourites} />
+            <Route
+              exact
+              path="/submissions/:username"
+              component={Submissions}
+            />
             <Route exact path="/newest" component={Newest} />
             <Route
               exact

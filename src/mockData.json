@@ -59,7 +59,7 @@
             "about" : "This is my about section",
             "submissions" : ["55924", "94617", "62980"],
             "comments" : ["20498"],
-            "favourites": []
+            "favourites": ["60366"]
         },
         {
             "username" : "faraz1",
@@ -68,7 +68,7 @@
             "about" : "This is my about section",
             "submissions" : ["60366"],
             "comments" : ["17483"],
-            "favourites": []
+            "favourites": ["55924", "94617"]
         },
         {
             "username" : "faraz2",
@@ -77,7 +77,7 @@
             "about" : "This is my about section",
             "submissions" : ["38432"],
             "comments" : [],
-            "favourites": []
+            "favourites": ["62980"]
         }
     ],
     "allComments" : [
