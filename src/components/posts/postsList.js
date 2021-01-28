@@ -23,8 +23,8 @@ export default function PostsList({ history, postsList }) {
         <div className="posts-list">
           {posts.map((post, index) => (
             <PostItem
-              isListItem={true}
               history={history}
+              isListItem={true}
               hidePost={hidePost}
               key={post.id}
               serialNumber={index + 1}

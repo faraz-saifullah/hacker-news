@@ -73,11 +73,13 @@ export function addNewPostInStorage(newPost) {
   window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
 }
 
-export function makeCommentBody(username, commentText) {
+export function makeCommentBody(username, commentText, postTitle, postId) {
   return {
     id: `${Math.floor(Math.random() * 90000) + 10000}`,
     commentedBy: username,
     text: commentText,
+    postTitle: postTitle,
+    postId: postId,
     postedTime: Date.now(),
     points: 0,
     comments: [],

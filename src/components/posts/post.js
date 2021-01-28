@@ -10,8 +10,8 @@ import {
 import Comment from '../comment/comment';
 import Context from '../../Context';
 
-export default function Post(props) {
-  const [post, setPost] = useState(findPostById(props?.match?.params?.postId));
+export default function Post({ history, match }) {
+  const [post, setPost] = useState(findPostById(match?.params?.postId));
   const [commentText, setCommentText] = useState('');
   const { user } = useContext(Context);
 
@@ -21,7 +21,12 @@ export default function Post(props) {
 
   const addComment = React.useCallback(() => {
     let newPost = { ...post };
-    let newComment = makeCommentBody(user.username, commentText);
+    let newComment = makeCommentBody(
+      user.username,
+      commentText,
+      post.title,
+      post.id,
+    );
     newPost.comments.push(newComment.id);
     updatePostInStorage(newPost.id, newPost);
     addNewCommentInStorage(newComment);
@@ -33,7 +38,7 @@ export default function Post(props) {
     <div className="container">
       {post ? (
         <div className="posts-list">
-          <PostItem history={props.history} isListItem={false} post={post} />
+          <PostItem history={history} isListItem={false} post={post} />
           <textarea
             value={commentText}
             onChange={updateCommentText}
@@ -47,6 +52,8 @@ export default function Post(props) {
           </button>
           {post.comments.map((commentId) => (
             <Comment
+              isPartOfThread={true}
+              history={history}
               user={user}
               key={commentId}
               comment={findCommentById(commentId)}

@@ -26,7 +26,7 @@
             "link": "https://blog.racket-lang.org/2021/01/racket-status.html",
             "comments": [],
             "points": 0,
-            "postedBy": "faraz1",
+            "postedBy": "faraz2",
             "postedTime": 1611531217821,
             "isOpened": false
         },
@@ -84,6 +84,8 @@
         {
             "id": "17483",
             "commentedBy": "faraz1",
+            "postTitle":"What You Should Know Before Leaking a Zoom Meeting",
+            "postId": "55924",
             "text": "This is the very first comment I posted",
             "postedTime": 1611057656793,
             "points": 0,
@@ -92,6 +94,8 @@
         {
             "id": "20498",
             "commentedBy": "faraz",
+            "postTitle":"What You Should Know Before Leaking a Zoom Meeting",
+            "postId": "55924",
             "text": "This is the second comment I posted",
             "postedTime": 1611057656793,
             "points": 0,

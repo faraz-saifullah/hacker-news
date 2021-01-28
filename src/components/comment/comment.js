@@ -8,8 +8,9 @@ import {
   getThreadLength,
 } from '../../utils/utilities';
 import upvoteSymbol from '../../grayarrow.gif';
+import LinkButton from '../button/linkButton';
 
-export default function Comment({ user, match, comment }) {
+export default function Comment({ user, history, comment, isPartOfThread }) {
   const [timeDiff, setTimeDiff] = useState('');
   const [thread, setThread] = useState(comment);
   const [isReplying, setIsReplying] = useState(false);
@@ -51,7 +52,12 @@ export default function Comment({ user, match, comment }) {
 
   const addReplyToThread = React.useCallback(() => {
     let newThread = { ...thread };
-    let newReply = makeCommentBody(user.username, replyText);
+    let newReply = makeCommentBody(
+      user.username,
+      replyText,
+      thread.postTitle,
+      thread.postId,
+    );
     newThread.comments.unshift(newReply.id);
     setThread(newThread);
     updateCommentInStorage(newThread.id, newThread);
@@ -77,9 +83,12 @@ export default function Comment({ user, match, comment }) {
             alt="upvote"
           />
         )}
-        <button className="post-line comment-button-link underlineHover">
-          {thread.commentedBy}
-        </button>
+        <LinkButton
+          className={'post-line underlineHover comment-button-link'}
+          buttonText={thread.commentedBy}
+          history={history}
+          route={`users/${thread.commentedBy}`}
+        />
         <button className="post-line comment-button-link underlineHover">
           {timeDiff} ago
         </button>
@@ -91,52 +100,68 @@ export default function Comment({ user, match, comment }) {
             unvote
           </button>
         )}
-        {isThreadHidden ? (
-          <button
-            onClick={toggleThread}
-            className="post-line comment-button-link"
-          >
-            [{threadLength + 1} more]
-          </button>
+        {isPartOfThread ? (
+          <>
+            {isThreadHidden ? (
+              <button
+                onClick={toggleThread}
+                className="post-line comment-button-link"
+              >
+                [{threadLength + 1} more]
+              </button>
+            ) : (
+              <button
+                onClick={toggleThread}
+                className="post-line comment-button-link"
+              >
+                [-]
+              </button>
+            )}
+          </>
         ) : (
-          <button
-            onClick={toggleThread}
-            className="post-line comment-button-link"
-          >
-            [-]
-          </button>
+          <LinkButton
+            className={'post-line underlineHover comment-button-link'}
+            buttonText={`on: ${thread.postTitle}`}
+            history={history}
+            route={`posts/${thread.postId}`}
+          />
         )}
       </div>
       {!isThreadHidden && (
         <div className="comment-second-line">
           <p>{thread.text}</p>
-          {!isReplying && (
-            <button onClick={writeReply} className="button-link">
-              <u>reply</u>
-            </button>
-          )}
-          {isReplying && (
+          {isPartOfThread && (
             <>
-              <textarea
-                value={replyText}
-                onChange={updateReplyText}
-                className="comment-input comment-input-text"
-              />
-              <button onClick={addReplyToThread} className="button-link">
-                <u>post</u>
-              </button>
-              <button onClick={cancelReply} className="button-link">
-                <u>cancel</u>
-              </button>
+              {isReplying ? (
+                <>
+                  <textarea
+                    value={replyText}
+                    onChange={updateReplyText}
+                    className="comment-input comment-input-text"
+                  />
+                  <button onClick={addReplyToThread} className="button-link">
+                    <u>post</u>
+                  </button>
+                  <button onClick={cancelReply} className="button-link">
+                    <u>cancel</u>
+                  </button>
+                </>
+              ) : (
+                <button onClick={writeReply} className="button-link">
+                  <u>reply</u>
+                </button>
+              )}
+              {thread.comments.map((commentId) => (
+                <Comment
+                  history={history}
+                  isPartOfThread={true}
+                  user={user}
+                  key={commentId}
+                  comment={findCommentById(commentId)}
+                />
+              ))}
             </>
           )}
-          {thread.comments.map((commentId) => (
-            <Comment
-              user={user}
-              key={commentId}
-              comment={findCommentById(commentId)}
-            />
-          ))}
         </div>
       )}
     </div>

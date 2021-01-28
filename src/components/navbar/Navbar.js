@@ -19,30 +19,18 @@ export default function Navbar() {
         <Link to="/newest" className="navbar-item">
           new
         </Link>
-        <Link to="/" className="navbar-item">
+        <Link to="/threads" className="navbar-item">
           threads
         </Link>
-        <Link to="/profile" className="navbar-item">
-          past
-        </Link>
-        <Link to="/profile" className="navbar-item">
+        <Link to="/comments" className="navbar-item">
           comments
-        </Link>
-        <Link to="/profile" className="navbar-item">
-          ask
-        </Link>
-        <Link to="/profile" className="navbar-item">
-          show
-        </Link>
-        <Link to="/profile" className="navbar-item">
-          jobs
         </Link>
         <Link to="/submit" className="navbar-item">
           submit
         </Link>
         {user && (
           <>
-            <a href="/login" className="navbar-item">
+            <a href="/profile" className="navbar-item">
               {user?.username} ({2})
             </a>
             <button className="navbar-item" onClick={logout}>

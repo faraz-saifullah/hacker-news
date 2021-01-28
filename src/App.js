@@ -11,6 +11,7 @@ import Submit from './components/submit/submit';
 import Newest from './components/newest/newest';
 import Favourites from './components/favourite/favourites';
 import Submissions from './components/submissions/submissions';
+import Comments from './components/comment/comments';
 
 // import { findUser } from './utils/utilities';
 // import { allPosts, allUsers, allComments } from './mockData.json';
@@ -54,6 +55,7 @@ export default function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/comments" component={Comments} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
             <Route exact path="/favourites/:username" component={Favourites} />
