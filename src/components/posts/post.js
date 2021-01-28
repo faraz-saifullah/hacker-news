@@ -26,6 +26,7 @@ export default function Post({ history, match }) {
       commentText,
       post.title,
       post.id,
+      true,
     );
     newPost.comments.push(newComment.id);
     updatePostInStorage(newPost.id, newPost);

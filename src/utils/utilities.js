@@ -73,13 +73,20 @@ export function addNewPostInStorage(newPost) {
   window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
 }
 
-export function makeCommentBody(username, commentText, postTitle, postId) {
+export function makeCommentBody(
+  username,
+  commentText,
+  postTitle,
+  postId,
+  isThreadStart,
+) {
   return {
     id: `${Math.floor(Math.random() * 90000) + 10000}`,
+    isThreadStart,
     commentedBy: username,
     text: commentText,
-    postTitle: postTitle,
-    postId: postId,
+    postTitle,
+    postId,
     postedTime: Date.now(),
     points: 0,
     comments: [],
@@ -152,4 +159,18 @@ export function getUserByUsername(username) {
   let allUsers = JSON.parse(window.localStorage.getItem('allUsers'));
   let user = allUsers.find((user) => user.username === username);
   return user;
+}
+
+export function getCommentsByUser(username) {
+  let allComments = JSON.parse(window.localStorage.getItem('allComments'));
+  let commentsByUser = allComments.filter(
+    (comment) => comment.commentedBy === username,
+  );
+  return commentsByUser;
+}
+
+export function getThreadsByUser(username) {
+  let commentsByUser = getCommentsByUser(username);
+  let threadsByUser = commentsByUser.filter((comment) => comment.isThreadStart);
+  return threadsByUser;
 }

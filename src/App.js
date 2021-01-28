@@ -12,10 +12,12 @@ import Newest from './components/newest/newest';
 import Favourites from './components/favourite/favourites';
 import Submissions from './components/submissions/submissions';
 import Comments from './components/comment/comments';
+import Threads from './components/thread/threads';
+// import {allPosts, allComments, allUsers} from './mockData.json'
 
 const dummyUser = {
-  isDummyUser: true
-}
+  isDummyUser: true,
+};
 
 function routeToComponent(component, user) {
   if (!user.isDummyUser) {
@@ -57,6 +59,12 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/comments" component={Comments} />
+            <Route
+              exact
+              path="/threads"
+              component={routeToComponent(Threads, user)}
+            />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/posts/:postId" component={Post} />
             <Route exact path="/users/:username" component={UserProfile} />
             <Route exact path="/favourites/:username" component={Favourites} />

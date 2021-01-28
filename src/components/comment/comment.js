@@ -8,6 +8,7 @@ import {
   getThreadLength,
 } from '../../utils/utilities';
 import upvoteSymbol from '../../grayarrow.gif';
+import asteriskSymbol from '../../asterisk.png';
 import LinkButton from '../button/linkButton';
 
 export default function Comment({ user, history, comment, isPartOfThread }) {
@@ -36,7 +37,7 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
     setReplyText('');
   }, []);
 
-  const upVote = React.useCallback(() => {
+  const upvote = React.useCallback(() => {
     let newComment = { ...comment };
     newComment.points += 1;
     updateCommentInStorage(newComment.id, newComment);
@@ -57,6 +58,7 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
       replyText,
       thread.postTitle,
       thread.postId,
+      false,
     );
     newThread.comments.unshift(newReply.id);
     setThread(newThread);
@@ -75,13 +77,23 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   return (
     <div className="comment-body">
       <div className="comment-first-line">
-        {!isUpvoted && (
+        {user.username === thread.commentedBy ? (
           <img
-            onClick={upVote}
-            className="comment-upvote post-line"
-            src={upvoteSymbol}
+            className="post-upvote post-line"
+            src={asteriskSymbol}
             alt="upvote"
           />
+        ) : (
+          <>
+            {!isUpvoted && (
+              <img
+                onClick={upvote}
+                className="post-upvote post-line"
+                src={upvoteSymbol}
+                alt="upvote"
+              />
+            )}
+          </>
         )}
         <LinkButton
           className={'post-line underlineHover comment-button-link'}
@@ -100,7 +112,13 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
             unvote
           </button>
         )}
-        {isPartOfThread ? (
+        <LinkButton
+          className={'post-line underlineHover comment-button-link'}
+          buttonText={`on: ${thread.postTitle}`}
+          history={history}
+          route={`posts/${thread.postId}`}
+        />
+        {isPartOfThread && (
           <>
             {isThreadHidden ? (
               <button
@@ -118,13 +136,6 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
               </button>
             )}
           </>
-        ) : (
-          <LinkButton
-            className={'post-line underlineHover comment-button-link'}
-            buttonText={`on: ${thread.postTitle}`}
-            history={history}
-            route={`posts/${thread.postId}`}
-          />
         )}
       </div>
       {!isThreadHidden && (

@@ -2,7 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../Context';
 import Comment from './comment';
 
-export default function CommentsList({ match, history, commentsList }) {
+export default function CommentsList({
+  match,
+  history,
+  commentsList,
+  isThread,
+}) {
   const { user } = useContext(Context);
   const [comments, setComments] = useState(commentsList);
 
@@ -21,7 +26,7 @@ export default function CommentsList({ match, history, commentsList }) {
               user={user}
               match={match}
               comment={comment}
-              isPartOfThread={false}
+              isPartOfThread={isThread}
             />
           ))}
         </div>

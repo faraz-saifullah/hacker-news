@@ -6,7 +6,9 @@ export default function Navbar() {
   const { user, setUser } = useContext(Context);
 
   const logout = React.useCallback(() => {
-    setUser(null);
+    setUser({
+      isDummyUser: true,
+    });
     window.localStorage.setItem('user', null);
   }, [setUser]);
 
@@ -19,16 +21,18 @@ export default function Navbar() {
         <Link to="/newest" className="navbar-item">
           new
         </Link>
-        {!user.isDummyUser && <Link to="/threads" className="navbar-item">
-          threads
-        </Link>}
+        {!user.isDummyUser && (
+          <Link to="/threads" className="navbar-item">
+            threads
+          </Link>
+        )}
         <Link to="/comments" className="navbar-item">
           comments
         </Link>
         <Link to="/submit" className="navbar-item">
           submit
         </Link>
-        {!user.isDummyUser && (
+        {!user.isDummyUser ? (
           <>
             <a href="/profile" className="navbar-item">
               {user?.username} ({2})
@@ -37,6 +41,10 @@ export default function Navbar() {
               logout
             </button>
           </>
+        ) : (
+          <Link to="/login" className="navbar-item">
+            login
+          </Link>
         )}
       </div>
     </nav>

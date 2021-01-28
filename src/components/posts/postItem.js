@@ -17,7 +17,6 @@ export default function PostItem({
   serialNumber,
   post,
 }) {
-
   const { user } = useContext(Context);
   const [timeDiff, setTimeDiff] = useState('');
   const [postTitleClassName, setPostTitleClassName] = useState(
@@ -70,11 +69,11 @@ export default function PostItem({
         {isListItem && (
           <p className="post-line post-serial-number">{serialNumber}. </p>
         )}
-        { user.username === post.postedBy ? (
+        {user.username === post.postedBy ? (
           <img
-          className="post-upvote post-line"
-          src={asteriskSymbol}
-          alt="upvote"
+            className="post-upvote post-line"
+            src={asteriskSymbol}
+            alt="upvote"
           />
         ) : (
           <>
@@ -87,8 +86,7 @@ export default function PostItem({
               />
             )}
           </>
-        )
-        }
+        )}
         <p className={`post-line  ${postTitleClassName}`} onClick={goToLink}>
           {post.title}
         </p>

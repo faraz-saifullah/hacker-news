@@ -83,6 +83,7 @@
     "allComments" : [
         {
             "id": "17483",
+            "isThreadStart": true,
             "commentedBy": "faraz1",
             "postTitle":"What You Should Know Before Leaking a Zoom Meeting",
             "postId": "55924",
@@ -93,6 +94,7 @@
         },
         {
             "id": "20498",
+            "isThreadStart": false,
             "commentedBy": "faraz",
             "postTitle":"What You Should Know Before Leaking a Zoom Meeting",
             "postId": "55924",
