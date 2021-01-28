@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   findTimeDifference,
   getDomainName,
@@ -7,6 +7,8 @@ import {
 import PostButtons from '../button/postButtons';
 import LinkButton from '../button/linkButton';
 import upvoteSymbol from '../../grayarrow.gif';
+import asteriskSymbol from '../../asterisk.png';
+import Context from '../../Context';
 
 export default function PostItem({
   isListItem,
@@ -15,6 +17,8 @@ export default function PostItem({
   serialNumber,
   post,
 }) {
+
+  const { user } = useContext(Context);
   const [timeDiff, setTimeDiff] = useState('');
   const [postTitleClassName, setPostTitleClassName] = useState(
     'post-title-unclicked',
@@ -66,14 +70,25 @@ export default function PostItem({
         {isListItem && (
           <p className="post-line post-serial-number">{serialNumber}. </p>
         )}
-        {!isUpvoted && (
+        { user.username === post.postedBy ? (
           <img
-            onClick={upvote}
-            className="post-upvote post-line"
-            src={upvoteSymbol}
-            alt="loading..."
+          className="post-upvote post-line"
+          src={asteriskSymbol}
+          alt="upvote"
           />
-        )}
+        ) : (
+          <>
+            {!isUpvoted && (
+              <img
+                onClick={upvote}
+                className="post-upvote post-line"
+                src={upvoteSymbol}
+                alt="upvote"
+              />
+            )}
+          </>
+        )
+        }
         <p className={`post-line  ${postTitleClassName}`} onClick={goToLink}>
           {post.title}
         </p>

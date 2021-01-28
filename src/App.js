@@ -13,11 +13,12 @@ import Favourites from './components/favourite/favourites';
 import Submissions from './components/submissions/submissions';
 import Comments from './components/comment/comments';
 
-// import { findUser } from './utils/utilities';
-// import { allPosts, allUsers, allComments } from './mockData.json';
+const dummyUser = {
+  isDummyUser: true
+}
 
 function routeToComponent(component, user) {
-  if (user) {
+  if (!user.isDummyUser) {
     return component;
   }
   return Login;
@@ -25,7 +26,7 @@ function routeToComponent(component, user) {
 
 export default function App() {
   const routerRef = useRef();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(dummyUser);
   const [isLoggingIn, setIsLoggingIn] = useState(true);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function App() {
     // window.localStorage.setItem('allUsers', JSON.stringify(allUsers));
     // window.localStorage.setItem('allComments', JSON.stringify(allComments));
     setIsLoggingIn(false);
-    setUser(userDetails);
+    setUser(userDetails || dummyUser);
   }, []);
 
   return isLoggingIn ? (

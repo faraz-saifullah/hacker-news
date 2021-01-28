@@ -19,16 +19,16 @@ export default function Navbar() {
         <Link to="/newest" className="navbar-item">
           new
         </Link>
-        <Link to="/threads" className="navbar-item">
+        {!user.isDummyUser && <Link to="/threads" className="navbar-item">
           threads
-        </Link>
+        </Link>}
         <Link to="/comments" className="navbar-item">
           comments
         </Link>
         <Link to="/submit" className="navbar-item">
           submit
         </Link>
-        {user && (
+        {!user.isDummyUser && (
           <>
             <a href="/profile" className="navbar-item">
               {user?.username} ({2})
