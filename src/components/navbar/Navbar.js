@@ -34,7 +34,7 @@ export default function Navbar() {
         </Link>
         {!user.isDummyUser ? (
           <>
-            <a href="/profile" className="navbar-item">
+            <a href={`/users/${user.username}`} className="navbar-item">
               {user?.username} ({2})
             </a>
             <button className="navbar-item" onClick={logout}>

@@ -122,3 +122,9 @@ html {
   background-color: transparent;
   font-size: small;
 }
+
+.about-me{
+  height: 8em;
+  width: 40em;
+  margin-top: 0.4em;
+}
