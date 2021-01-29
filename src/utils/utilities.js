@@ -47,8 +47,7 @@ export function findCommentById(commentId) {
 
 export function updatePostInStorage(postId, newPost) {
   let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
-  let oldPost = allPosts.find((post) => post.id === postId);
-  let index = allPosts.indexOf(oldPost);
+  let index = allPosts.findIndex((post) => post.id === postId);
   allPosts[index] = newPost;
   window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
 }
@@ -169,8 +168,35 @@ export function getCommentsByUser(username) {
   return commentsByUser;
 }
 
+export function updateUser(oldUser, newUser) {
+  let allUsers = JSON.parse(window.localStorage.getItem('allUsers'));
+  let index = allUsers.findIndex((user) => user.username === oldUser.username);
+  allUsers[index] = newUser;
+  window.localStorage.setItem('allUsers', JSON.stringify(allUsers));
+}
+
 export function getThreadsByUser(username) {
   let commentsByUser = getCommentsByUser(username);
   let threadsByUser = commentsByUser.filter((comment) => comment.isThreadStart);
   return threadsByUser;
+}
+
+export function addToFavourites(username, postId) {
+  let oldUser = getUserByUsername(username);
+  let newUser = JSON.parse(JSON.stringify(oldUser));
+  newUser.favourites.push(postId);
+  window.localStorage.setItem('user', JSON.stringify(newUser));
+  updateUser(oldUser, newUser);
+}
+
+export function createUser(username, password) {
+  return {
+    username: username,
+    password: password,
+    timeCreated: Date.now(),
+    about: 'This is my about section',
+    submissions: [],
+    comments: [],
+    favourites: [],
+  };
 }

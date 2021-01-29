@@ -3,6 +3,7 @@ import {
   findTimeDifference,
   getDomainName,
   updatePostInStorage,
+  addToFavourites,
 } from '../../utils/utilities';
 import PostButtons from '../button/postButtons';
 import LinkButton from '../button/linkButton';
@@ -24,12 +25,17 @@ export default function PostItem({
   );
   const [isHidden, setIsHidden] = useState(false);
   const [isUpvoted, setIsUpvoted] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(false);
 
   const goToLink = React.useCallback(() => {
     let link = post.link.replace('https://', '');
     window.open(`https://${link}`, '_blank');
     setPostTitleClassName('post-title-clicked');
   }, [post.link]);
+
+  function isAlreadyFavourite(allFavs, postId) {
+    return allFavs?.indexOf(postId) > -1;
+  }
 
   const goToPost = React.useCallback(() => {
     history.push(`/posts/${post.id}`);
@@ -58,10 +64,16 @@ export default function PostItem({
     setIsHidden(false);
   }, []);
 
+  const markFavourite = React.useCallback(() => {
+    addToFavourites(user.username, post.id);
+    setIsFavourite(true);
+  }, [user.username, post.id]);
+
   useEffect(() => {
     let timeDiff = findTimeDifference(post.postedTime);
+    setIsFavourite(isAlreadyFavourite(user.favourites, post.id));
     setTimeDiff(timeDiff);
-  }, [post.postedTime]);
+  }, [user.favourites, post.postId, post.postedTime, post.id]);
 
   return (
     <>
@@ -126,8 +138,8 @@ export default function PostItem({
               text: 'un-hide',
             },
             {
-              condition: true,
-              func: unhide,
+              condition: !isFavourite,
+              func: markFavourite,
               className: 'post-line underlineHover button-link',
               text: 'favourite',
             },

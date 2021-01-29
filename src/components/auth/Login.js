@@ -1,6 +1,6 @@
 import React, { useContext, useState, Fragment } from 'react';
 import Context from '../../Context';
-import { findUser } from '../../utils/utilities';
+import { createUser, findUser, getUserByUsername } from '../../utils/utilities';
 import { validateLoginInput } from './validation';
 
 export default function LoginForm() {
@@ -29,7 +29,7 @@ export default function LoginForm() {
         let userDetails = findUser(username, password);
         if (!userDetails) {
           setIsLoggingIn(false);
-          return 'Invalid login credentials';
+          return;
         }
         setUser(userDetails);
         setIsLoggingIn(false);
@@ -38,6 +38,19 @@ export default function LoginForm() {
     },
     [setIsLoggingIn, setUser],
   );
+
+  const signup = React.useCallback(() => {
+    setIsLoggingIn(true);
+    if (getUserByUsername(username)) {
+      setIsLoggingIn(false);
+      setError('Username already exists');
+      return;
+    }
+    let userDetails = createUser(username, password);
+    setUser(userDetails);
+    setIsLoggingIn(false);
+    window.localStorage.setItem('user', JSON.stringify(userDetails));
+  }, [username, password, setIsLoggingIn, setUser]);
 
   const handleSubmit = React.useCallback(
     (event) => {
@@ -91,7 +104,14 @@ export default function LoginForm() {
               onClick={handleSubmit}
               disabled={isLoggingIn}
             >
-              Submit
+              Login
+            </button>
+            <button
+              className="button sis-outlined is-pulled-right"
+              onClick={signup}
+              disabled={isLoggingIn}
+            >
+              Signup
             </button>
             <button
               className="button sis-outlined is-pulled-right"

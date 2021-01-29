@@ -13,7 +13,7 @@ import Favourites from './components/favourite/favourites';
 import Submissions from './components/submissions/submissions';
 import Comments from './components/comment/comments';
 import Threads from './components/thread/threads';
-// import {allPosts, allComments, allUsers} from './mockData.json'
+// import {allPosts, allComments, allUsers, allVotes} from './mockData.json'
 
 const dummyUser = {
   isDummyUser: true,
@@ -33,7 +33,9 @@ export default function App() {
 
   useEffect(() => {
     let userDetails = JSON.parse(window.localStorage.getItem('user'));
+    // console.log(userDetails);
     // window.localStorage.setItem('user', null);
+    // window.localStorage.setItem('allVotes', JSON.stringify(allVotes));
     // window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
     // window.localStorage.setItem('allUsers', JSON.stringify(allUsers));
     // window.localStorage.setItem('allComments', JSON.stringify(allComments));

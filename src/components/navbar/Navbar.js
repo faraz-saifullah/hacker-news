@@ -15,7 +15,7 @@ export default function Navbar() {
   return (
     <nav className="hn-navbar container">
       <Link to="/" className="navbar-item">
-        <b className="navbar-item">Hacker News</b>
+        <b>Hacker News</b>
       </Link>
       <div className={'navbar-menu'}>
         <Link to="/newest" className="navbar-item">
