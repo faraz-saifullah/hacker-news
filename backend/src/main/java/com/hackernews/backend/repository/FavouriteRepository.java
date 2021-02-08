@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FavouriteRepository extends JpaRepository<Favourite, Integer> {
     List<Favourite> getFavouriteByUsername(String username);
-    List<Favourite> getFavouriteByPostId(Integer postId);
+    Favourite deleteFavouriteByUsernameAndPostId(String username, Integer postId);
 }

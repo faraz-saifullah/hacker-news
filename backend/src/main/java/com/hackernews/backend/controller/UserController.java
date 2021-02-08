@@ -85,8 +85,17 @@ public class UserController {
     @PostMapping("/users/{username}/favs")
     private ResponseEntity<Favourite> addToUsersFavourites(@PathVariable("username") String username, @RequestBody Integer postId) {
         try {
-            Favourite favourite = new Favourite(username, postId);
-            favourite = favouriteService.addToFavourite(favourite);
+            Favourite favourite = favouriteService.addToFavourite(username, postId);
+            return new ResponseEntity<Favourite>(favourite, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Favourite>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/users/{username}/favs")
+    private ResponseEntity<Favourite> removeFromFavourites(@PathVariable("username") String username, @RequestBody Integer postId) {
+        try {
+            Favourite favourite = favouriteService.deleteFavourite(username, postId);
             return new ResponseEntity<Favourite>(favourite, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Favourite>(HttpStatus.NOT_FOUND);

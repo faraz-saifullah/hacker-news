@@ -12,12 +12,17 @@ public class FavouriteService {
     @Autowired
     private FavouriteRepository favouriteRepo;
 
-    public Favourite addToFavourite(Favourite favourite) {
+    public Favourite addToFavourite(String username, Integer postId) {
+        Favourite favourite = new Favourite(username, postId);
         return favouriteRepo.save(favourite);
     }
 
     public List<Favourite> getFavouriteByUser(String username) {
         return favouriteRepo.getFavouriteByUsername(username);
+    }
+
+    public Favourite deleteFavourite(String username, Integer postId) {
+        return favouriteRepo.deleteFavouriteByUsernameAndPostId(username, postId);
     }
 
 }
