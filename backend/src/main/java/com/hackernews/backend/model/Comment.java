@@ -1,10 +1,14 @@
 package com.hackernews.backend.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Comment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String commentedBy;
     private String postTitle;
@@ -36,8 +40,6 @@ public class Comment {
 
     }
 
-
-    @Id
     public int getId() {
         return id;
     }

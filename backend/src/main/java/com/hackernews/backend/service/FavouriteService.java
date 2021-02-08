@@ -21,8 +21,8 @@ public class FavouriteService {
         return favouriteRepo.getFavouriteByUsername(username);
     }
 
-    public Favourite deleteFavourite(String username, Integer postId) {
-        return favouriteRepo.deleteFavouriteByUsernameAndPostId(username, postId);
+    public Integer deleteFavourite(String username, Integer postId) {
+        return favouriteRepo.deleteFavouriteByUsernameEqualsAndPostIdEquals(username, postId);
     }
 
 }
