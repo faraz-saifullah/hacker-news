@@ -8,6 +8,7 @@ public class User {
     private String password;
     private long timeCreated;
     private String about;
+    @Id
     private String username;
 
     public User(String username,
@@ -26,7 +27,6 @@ public class User {
 
     }
 
-    @Id
     public String getUsername() {
         return username;
     }

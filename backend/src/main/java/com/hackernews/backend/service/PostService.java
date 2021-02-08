@@ -23,4 +23,8 @@ public class PostService {
     public Post savePost(Post post) {
         return postRepo.save(post);
     }
+
+    public List<Post> getAllPostsByUser(String username) {
+        return postRepo.findAllByPostedBy(username);
+    }
 }

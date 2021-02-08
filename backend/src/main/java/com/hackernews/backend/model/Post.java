@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 @Entity
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
     private String link;
@@ -11,7 +13,7 @@ public class Post {
     private String postedBy;
     private long postedTime;
 
-    public Post(){
+    public Post() {
 
     }
 
@@ -30,8 +32,6 @@ public class Post {
         this.postedTime = postedTime;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
