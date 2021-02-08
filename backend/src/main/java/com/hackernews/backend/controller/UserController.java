@@ -1,7 +1,9 @@
 package com.hackernews.backend.controller;
 
+import com.hackernews.backend.model.Favourite;
 import com.hackernews.backend.model.Post;
 import com.hackernews.backend.model.User;
+import com.hackernews.backend.service.FavouriteService;
 import com.hackernews.backend.service.PostService;
 import com.hackernews.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private FavouriteService favouriteService;
 
     //Get all users
     @GetMapping("/users")
@@ -62,6 +67,29 @@ public class UserController {
             return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<List<Post>>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //get all favourites by user
+    @GetMapping("/users/{username}/favs")
+    private ResponseEntity<List<Favourite>> getAllFavouritesByUser(@PathVariable("username") String username) {
+        try {
+            List<Favourite> favourites = favouriteService.getFavouriteByUser(username);
+            return new ResponseEntity<List<Favourite>>(favourites, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<List<Favourite>>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //add to user's favourites
+    @PostMapping("/users/{username}/favs")
+    private ResponseEntity<Favourite> addToUsersFavourites(@PathVariable("username") String username, @RequestBody Integer postId) {
+        try {
+            Favourite favourite = new Favourite(username, postId);
+            favourite = favouriteService.addToFavourite(favourite);
+            return new ResponseEntity<Favourite>(favourite, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Favourite>(HttpStatus.NOT_FOUND);
         }
     }
 }
