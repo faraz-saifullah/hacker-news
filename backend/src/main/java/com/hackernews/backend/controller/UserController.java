@@ -61,7 +61,7 @@ public class UserController {
             List<Post> posts = postService.getAllPostsByUser(username);
             return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<List<Post>git >(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<List<Post>>(HttpStatus.NOT_FOUND);
         }
     }
 }
