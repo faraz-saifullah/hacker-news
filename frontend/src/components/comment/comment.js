@@ -69,13 +69,13 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   //TODO: Make thread length update in real time
   useEffect(() => {
     let timeDiff = findTimeDifference(comment.postedTime);
-    let newThread = {...thread};
+    let newThread = { ...thread };
     setTimeDiff(timeDiff);
     getThreadByParentId(newThread.id).then((comments) => {
       newThread.comments = comments;
       setThread(newThread);
       setIsThreadLoading(false);
-    })
+    });
     setThreadLength(4);
   }, [comment.postedTime, thread, threadLength]);
 
@@ -167,15 +167,19 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
                   <u>reply</u>
                 </button>
               )}
-              {isThreadLoading ? <Loader /> : thread.comments.map((comment) => (
-                <Comment
-                  history={history}
-                  isPartOfThread={true}
-                  user={user}
-                  key={comment.id}
-                  comment={comment}
-                />
-              ))}
+              {isThreadLoading ? (
+                <Loader />
+              ) : (
+                thread.comments.map((comment) => (
+                  <Comment
+                    history={history}
+                    isPartOfThread={true}
+                    user={user}
+                    key={comment.id}
+                    comment={comment}
+                  />
+                ))
+              )}
             </>
           )}
         </div>

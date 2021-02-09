@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PostItem from './postItem';
-import {
-  makeCommentBody,
-} from '../../utils/utilities';
+import { makeCommentBody } from '../../utils/utilities';
 import Comment from '../comment/comment';
 import Context from '../../Context';
 import Loader from '../loader/loader';
-import { getAllComments, getPostById, getThreadsLength } from '../../api/post';
+import { getAllComments, getPostById } from '../../api/post';
 import { createNewComment } from '../../api/comment';
 
 export default function Post({ history, match }) {
@@ -30,7 +28,7 @@ export default function Post({ history, match }) {
       post.id,
       0,
     );
-    setComments([...comments, newComment])
+    setComments([...comments, newComment]);
     createNewComment(newComment);
     setPost(newPost);
     setCommentText('');
@@ -40,19 +38,20 @@ export default function Post({ history, match }) {
     setIsPostLoading(true);
     setIsCommentsLoading(true);
     let postId = match?.params?.postId;
-    getPostById(postId).then(async (post) => {
-      post.threadLength = await getThreadsLength(post.id);
+    getPostById(postId).then((post) => {
       setPost(post);
       setIsPostLoading(false);
-    })
+    });
     getAllComments(postId).then((comments) => {
       setComments(comments);
       setIsCommentsLoading(false);
-    })
-  },[match.params.postId])
+    });
+  }, [match.params.postId]);
 
-  return (
-    isPostLoading? <Loader/> : <div className="container">
+  return isPostLoading ? (
+    <Loader />
+  ) : (
+    <div className="container">
       {post ? (
         <div className="posts-list">
           <PostItem history={history} isListItem={false} post={post} />
@@ -67,15 +66,19 @@ export default function Post({ history, match }) {
           >
             add comment
           </button>
-          {isCommentsLoading ? <Loader /> : comments.map((comment) => (
-            <Comment
-              isPartOfThread={true}
-              history={history}
-              user={user}
-              key={comment.id}
-              comment={comment}
-            />
-          ))}
+          {isCommentsLoading ? (
+            <Loader />
+          ) : (
+            comments.map((comment) => (
+              <Comment
+                isPartOfThread={true}
+                history={history}
+                user={user}
+                key={comment.id}
+                comment={comment}
+              />
+            ))
+          )}
         </div>
       ) : (
         <p>Post Not Found</p>

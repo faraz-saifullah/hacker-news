@@ -33,7 +33,7 @@ export default function App() {
     setUser(userDetails || dummyUser);
   }, []);
 
-  return(
+  return (
     <Context.Provider
       value={{
         user: user,
@@ -70,5 +70,5 @@ export default function App() {
         </div>
       </Router>
     </Context.Provider>
-  )
+  );
 }

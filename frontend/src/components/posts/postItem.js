@@ -10,6 +10,7 @@ import LinkButton from '../button/linkButton';
 import upvoteSymbol from '../../grayarrow.gif';
 import asteriskSymbol from '../../asterisk.png';
 import Context from '../../Context';
+import { getThreadsLength } from '../../api/post';
 
 export default function PostItem({
   isListItem,
@@ -26,6 +27,7 @@ export default function PostItem({
   const [isHidden, setIsHidden] = useState(false);
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
+  const [threadLength, setThreadsLength] = useState(0);
 
   const goToLink = React.useCallback(() => {
     let link = post.link.replace('https://', '');
@@ -72,6 +74,9 @@ export default function PostItem({
   useEffect(() => {
     let timeDiff = findTimeDifference(post.postedTime);
     setIsFavourite(isAlreadyFavourite(user.favourites, post.id));
+    getThreadsLength(post.id).then((length) => {
+      setThreadsLength(length);
+    });
     setTimeDiff(timeDiff);
   }, [user.favourites, post.postId, post.postedTime, post.id]);
 
@@ -148,7 +153,7 @@ export default function PostItem({
               condition: true,
               func: goToPost,
               className: 'post-line underlineHover button-link',
-              text: `${post.threadLength} comments`,
+              text: `${threadLength} comments`,
             },
           ]}
         />
