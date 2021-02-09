@@ -28,8 +28,9 @@ export default function Post({ history, match }) {
       post.id,
       0,
     );
-    setComments([...comments, newComment]);
-    createNewComment(newComment);
+    createNewComment(newComment).then((createdComment) => {
+      setComments([...comments, createdComment]);
+    });
     setPost(newPost);
     setCommentText('');
   }, [commentText, post, user.username, comments]);

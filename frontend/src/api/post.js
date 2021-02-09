@@ -2,11 +2,12 @@ import axios from 'axios';
 import { BASE_URL } from '../Config';
 
 export async function createNewPost(post) {
-  axios.post(`${BASE_URL}/posts`, post, {
+  let newPost = await axios.post(`${BASE_URL}/posts`, post, {
     headers: {
       'Content-Type': 'application/json',
     },
   });
+  return newPost.data;
 }
 
 export async function getAllPosts() {

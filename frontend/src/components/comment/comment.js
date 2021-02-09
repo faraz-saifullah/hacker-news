@@ -12,7 +12,8 @@ import Loader from '../loader/loader';
 
 export default function Comment({ user, history, comment, isPartOfThread }) {
   const [timeDiff, setTimeDiff] = useState('');
-  const [thread, setThread] = useState(comment);
+  const [thread] = useState(comment);
+  const [replies, setReplies] = useState();
   const [isThreadLoading, setIsThreadLoading] = useState(true);
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState('');
@@ -29,8 +30,9 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   }, []);
 
   const toggleThread = React.useCallback(() => {
+    setThreadLength(replies.length);
     setIsThreadHidden(!isThreadHidden);
-  }, [isThreadHidden]);
+  }, [replies, isThreadHidden]);
 
   const cancelReply = React.useCallback(() => {
     setIsReplying(false);
@@ -52,7 +54,7 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   }, [comment]);
 
   const addReplyToThread = React.useCallback(() => {
-    let newThread = { ...thread };
+    let newReplies = [...replies];
     let newReply = makeCommentBody(
       user.username,
       replyText,
@@ -60,24 +62,30 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
       thread.postId,
       thread.id,
     );
-    newThread.comments.unshift(newReply);
-    setThread(newThread);
-    createNewComment(newReply);
+    createNewComment(newReply).then((addedReply) => {
+      newReplies.unshift(addedReply);
+      setReplies(newReplies);
+    });
     cancelReply(4);
-  }, [thread, user.username, replyText, cancelReply]);
+  }, [
+    thread.id,
+    thread.postTitle,
+    thread.postId,
+    replies,
+    user.username,
+    replyText,
+    cancelReply,
+  ]);
 
-  //TODO: Make thread length update in real time
   useEffect(() => {
     let timeDiff = findTimeDifference(comment.postedTime);
-    let newThread = { ...thread };
+    setIsThreadLoading(true);
     setTimeDiff(timeDiff);
-    getThreadByParentId(newThread.id).then((comments) => {
-      newThread.comments = comments;
-      setThread(newThread);
+    getThreadByParentId(thread.id).then((comments) => {
+      setReplies(comments);
       setIsThreadLoading(false);
     });
-    setThreadLength(4);
-  }, [comment.postedTime, thread, threadLength]);
+  }, [thread.id, comment.postedTime, threadLength]);
 
   return (
     <div className="comment-body">
@@ -170,7 +178,7 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
               {isThreadLoading ? (
                 <Loader />
               ) : (
-                thread.comments.map((comment) => (
+                replies.map((comment, index) => (
                   <Comment
                     history={history}
                     isPartOfThread={true}
