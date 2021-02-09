@@ -1,19 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PostItem from './postItem';
 import {
-  findPostById,
-  updatePostInStorage,
   makeCommentBody,
-  findCommentById,
-  addNewCommentInStorage,
 } from '../../utils/utilities';
 import Comment from '../comment/comment';
 import Context from '../../Context';
+import Loader from '../loader/loader';
+import { getAllComments, getPostById, getThreadsLength } from '../../api/post';
+import { createNewComment } from '../../api/comment';
 
 export default function Post({ history, match }) {
-  const [post, setPost] = useState(findPostById(match?.params?.postId));
+  const [post, setPost] = useState();
+  const [comments, setComments] = useState();
   const [commentText, setCommentText] = useState('');
   const { user } = useContext(Context);
+  const [isPostLoading, setIsPostLoading] = useState(true);
+  const [isCommentsLoading, setIsCommentsLoading] = useState(true);
 
   const updateCommentText = React.useCallback((event) => {
     setCommentText(event.target.value);
@@ -26,17 +28,31 @@ export default function Post({ history, match }) {
       commentText,
       post.title,
       post.id,
-      true,
+      0,
     );
-    newPost.comments.push(newComment.id);
-    updatePostInStorage(newPost.id, newPost);
-    addNewCommentInStorage(newComment);
+    setComments([...comments, newComment])
+    createNewComment(newComment);
     setPost(newPost);
     setCommentText('');
-  }, [commentText, post, user.username]);
+  }, [commentText, post, user.username, comments]);
+
+  useEffect(() => {
+    setIsPostLoading(true);
+    setIsCommentsLoading(true);
+    let postId = match?.params?.postId;
+    getPostById(postId).then(async (post) => {
+      post.threadLength = await getThreadsLength(post.id);
+      setPost(post);
+      setIsPostLoading(false);
+    })
+    getAllComments(postId).then((comments) => {
+      setComments(comments);
+      setIsCommentsLoading(false);
+    })
+  },[match.params.postId])
 
   return (
-    <div className="container">
+    isPostLoading? <Loader/> : <div className="container">
       {post ? (
         <div className="posts-list">
           <PostItem history={history} isListItem={false} post={post} />
@@ -51,13 +67,13 @@ export default function Post({ history, match }) {
           >
             add comment
           </button>
-          {post.comments.map((commentId) => (
+          {isCommentsLoading ? <Loader /> : comments.map((comment) => (
             <Comment
               isPartOfThread={true}
               history={history}
               user={user}
-              key={commentId}
-              comment={findCommentById(commentId)}
+              key={comment.id}
+              comment={comment}
             />
           ))}
         </div>

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   makeCommentBody,
-  addNewCommentInStorage,
-  findCommentById,
   findTimeDifference,
   updateCommentInStorage,
-  getThreadLength,
 } from '../../utils/utilities';
 import upvoteSymbol from '../../grayarrow.gif';
 import asteriskSymbol from '../../asterisk.png';
 import LinkButton from '../button/linkButton';
+import { createNewComment, getThreadByParentId } from '../../api/comment';
+import Loader from '../loader/loader';
 
 export default function Comment({ user, history, comment, isPartOfThread }) {
   const [timeDiff, setTimeDiff] = useState('');
   const [thread, setThread] = useState(comment);
+  const [isThreadLoading, setIsThreadLoading] = useState(true);
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState('');
   const [isThreadHidden, setIsThreadHidden] = useState(false);
@@ -58,21 +58,26 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
       replyText,
       thread.postTitle,
       thread.postId,
-      false,
+      thread.id,
     );
-    newThread.comments.unshift(newReply.id);
+    newThread.comments.unshift(newReply);
     setThread(newThread);
-    updateCommentInStorage(newThread.id, newThread);
-    addNewCommentInStorage(newReply);
-    cancelReply(getThreadLength(thread.comments));
+    createNewComment(newReply);
+    cancelReply(4);
   }, [thread, user.username, replyText, cancelReply]);
 
   //TODO: Make thread length update in real time
   useEffect(() => {
     let timeDiff = findTimeDifference(comment.postedTime);
+    let newThread = {...thread};
     setTimeDiff(timeDiff);
-    setThreadLength(getThreadLength(thread.comments));
-  }, [comment.postedTime, thread.comments, threadLength]);
+    getThreadByParentId(newThread.id).then((comments) => {
+      newThread.comments = comments;
+      setThread(newThread);
+      setIsThreadLoading(false);
+    })
+    setThreadLength(4);
+  }, [comment.postedTime, thread, threadLength]);
 
   return (
     <div className="comment-body">
@@ -162,13 +167,13 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
                   <u>reply</u>
                 </button>
               )}
-              {thread.comments.map((commentId) => (
+              {isThreadLoading ? <Loader /> : thread.comments.map((comment) => (
                 <Comment
                   history={history}
                   isPartOfThread={true}
                   user={user}
-                  key={commentId}
-                  comment={findCommentById(commentId)}
+                  key={comment.id}
+                  comment={comment}
                 />
               ))}
             </>

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export function findTimeDifference(time) {
   let postedOn = new Date(time);
   let current = new Date(Date.now());
@@ -67,6 +69,16 @@ export function addNewCommentInStorage(newComment) {
 }
 
 export function addNewPostInStorage(newPost) {
+  axios.post('http://localhost:8080/posts', {
+    title: newPost.title,
+    link: newPost.link,
+    postedBy: newPost.postedBy,
+    postedTime: newPost.postedTime
+  }, {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
   let allPosts = JSON.parse(window.localStorage.getItem('allPosts'));
   allPosts.push(newPost);
   window.localStorage.setItem('allPosts', JSON.stringify(allPosts));
@@ -77,18 +89,16 @@ export function makeCommentBody(
   commentText,
   postTitle,
   postId,
-  isThreadStart,
+  parentId,
 ) {
   return {
-    id: `${Math.floor(Math.random() * 90000) + 10000}`,
-    isThreadStart,
     commentedBy: username,
     text: commentText,
     postTitle,
     postId,
     postedTime: Date.now(),
     points: 0,
-    comments: [],
+    parentId
   };
 }
 
@@ -121,13 +131,11 @@ export function createPost(username, title, url, text) {
   }
   newPost = {
     ...newPost,
-    id: `${Math.floor(Math.random() * 90000) + 10000}`,
     title: title,
     link: url,
     points: 0,
     postedBy: username,
     postedTime: Date.now(),
-    isOpened: false,
   };
   return newPost;
 }

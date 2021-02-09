@@ -3,6 +3,12 @@ html {
   height: 100%;
   background-color: rgb(255, 255, 255);
 }
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 .container {
   display: flex;
   justify-content: center;

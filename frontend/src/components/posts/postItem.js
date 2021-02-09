@@ -148,7 +148,7 @@ export default function PostItem({
               condition: true,
               func: goToPost,
               className: 'post-line underlineHover button-link',
-              text: `${post.comments.length} comments`,
+              text: `${post.threadLength} comments`,
             },
           ]}
         />

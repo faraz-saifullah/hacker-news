@@ -5,7 +5,6 @@ import { validateLoginInput } from './validation';
 
 export default function LoginForm() {
   const { setUser } = useContext(Context);
-  const { setIsLoggingIn } = useContext(Context);
   const [username, setusername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -24,33 +23,27 @@ export default function LoginForm() {
 
   const login = React.useCallback(
     (username, password) => {
-      setIsLoggingIn(true);
       setTimeout(() => {
         let userDetails = findUser(username, password);
         if (!userDetails) {
-          setIsLoggingIn(false);
           return;
         }
         setUser(userDetails);
-        setIsLoggingIn(false);
         window.localStorage.setItem('user', JSON.stringify(userDetails));
       }, 1000);
     },
-    [setIsLoggingIn, setUser],
+    [setUser],
   );
 
   const signup = React.useCallback(() => {
-    setIsLoggingIn(true);
     if (getUserByUsername(username)) {
-      setIsLoggingIn(false);
       setError('Username already exists');
       return;
     }
     let userDetails = createUser(username, password);
     setUser(userDetails);
-    setIsLoggingIn(false);
     window.localStorage.setItem('user', JSON.stringify(userDetails));
-  }, [username, password, setIsLoggingIn, setUser]);
+  }, [username, password, setUser]);
 
   const handleSubmit = React.useCallback(
     (event) => {
