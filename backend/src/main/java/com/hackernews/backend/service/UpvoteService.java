@@ -21,6 +21,10 @@ public class UpvoteService {
         return upvoteRepo.getUpvoteByUsername(username);
     }
 
+    public List<Upvote> getUpvotesOnPost(Integer postId) {
+        return upvoteRepo.getUpvotesByPostId(postId);
+    }
+
     public Integer deleteUpvote(String username, Integer postId) {
         return upvoteRepo.deleteUpvoteByUsernameEqualsAndPostIdEquals(username, postId);
     }

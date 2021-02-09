@@ -36,4 +36,8 @@ public class CommentService {
     public List<Comment> getCommentsByParentId(Integer parentId) {
         return commentRepo.findCommentsByParentIdEquals(parentId);
     }
+
+    public List<Comment> getCommentsByUser(String username) {
+        return commentRepo.findCommentsByCommentedByEquals(username);
+    }
 }

@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { getPostsOfUser } from '../../utils/utilities';
 import PostsList from '../posts/postsList';
+import Loader from '../loader/loader';
+import { getAllPostsByUser } from '../../api/user';
 
 export default function Submissions({ history, match }) {
-  const [username] = useState(match.params.username);
+  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    let allPosts = getPostsOfUser(username, 'submissions');
-    setPosts(allPosts);
-  }, [username]);
+    setIsLoading(true);
+    getAllPostsByUser(match.params.username).then((allPosts) => {
+      setPosts(allPosts);
+      setIsLoading(false);
+    });
+  }, [match.params.username]);
 
-  return <PostsList history={history} postsList={posts} />;
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <PostsList history={history} postsList={posts} />
+  );
 }

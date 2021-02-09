@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UpvoteRepository extends JpaRepository<Upvote, Integer> {
     List<Upvote> getUpvoteByUsername(String username);
+    List<Upvote> getUpvotesByPostId(Integer postId);
     @Transactional
     Integer deleteUpvoteByUsernameEqualsAndPostIdEquals(String username, Integer postId);
 }

@@ -1,13 +1,7 @@
 package com.hackernews.backend.controller;
 
-import com.hackernews.backend.model.Favourite;
-import com.hackernews.backend.model.Post;
-import com.hackernews.backend.model.Upvote;
-import com.hackernews.backend.model.User;
-import com.hackernews.backend.service.FavouriteService;
-import com.hackernews.backend.service.PostService;
-import com.hackernews.backend.service.UpvoteService;
-import com.hackernews.backend.service.UserService;
+import com.hackernews.backend.model.*;
+import com.hackernews.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UpvoteService upvoteService;
+
+    @Autowired
+    private CommentService commentService;
 
     //Get all users
     @CrossOrigin
@@ -140,8 +137,8 @@ public class UserController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/users/{username}/upvotes")
-    private ResponseEntity<Integer> removeFromUpvotes(@PathVariable("username") String username, @RequestBody Integer postId) {
+    @DeleteMapping("/users/{username}/upvotes/{postId}")
+    private ResponseEntity<Integer> removeFromUpvotes(@PathVariable("username") String username, @PathVariable("postId") Integer postId) {
         try {
             Integer favourite = upvoteService.deleteUpvote(username, postId);
             return new ResponseEntity<>(favourite, HttpStatus.OK);
@@ -149,4 +146,17 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //get all upvotes by user
+    @CrossOrigin
+    @GetMapping("/users/{username}/comments")
+    private ResponseEntity<List<Comment>> getAllCommentsByUser(@PathVariable("username") String username) {
+        try {
+            List<Comment> comments = commentService.getCommentsByUser(username);
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

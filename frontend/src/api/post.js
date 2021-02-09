@@ -29,3 +29,12 @@ export async function getAllComments(postId) {
   let comments = await axios.get(`${BASE_URL}/posts/${postId}/comments`);
   return comments.data;
 }
+
+export async function updatePost(newPost) {
+  let post = await axios.patch(`${BASE_URL}/posts/${newPost.id}`, newPost, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return post;
+}

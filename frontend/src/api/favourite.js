@@ -17,12 +17,11 @@ export async function getFavoriteListOfUser(username) {
 }
 
 export async function getAllFavouritesByUser(username) {
-    let allFavs = await axios.get(`${BASE_URL}/users/${username}/favs`);
-    allFavs = allFavs.data;
-    console.log(allFavs);
-    let posts = [];
-    allFavs.forEach(fav => {
-        posts.push(getPostById(fav.postId));
-    });
-    return await Promise.all(posts);
-  }
+  let allFavs = await axios.get(`${BASE_URL}/users/${username}/favs`);
+  allFavs = allFavs.data;
+  let posts = [];
+  allFavs.forEach((fav) => {
+    posts.push(getPostById(fav.postId));
+  });
+  return await Promise.all(posts);
+}

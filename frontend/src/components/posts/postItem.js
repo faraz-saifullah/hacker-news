@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  findTimeDifference,
-  getDomainName,
-  updatePostInStorage,
-  addToFavourites,
-} from '../../utils/utilities';
+import { findTimeDifference, getDomainName } from '../../utils/utilities';
 import PostButtons from '../button/postButtons';
 import LinkButton from '../button/linkButton';
 import upvoteSymbol from '../../grayarrow.gif';
 import asteriskSymbol from '../../asterisk.png';
 import Context from '../../Context';
-import { getThreadsLength } from '../../api/post';
+import { getThreadsLength, updatePost } from '../../api/post';
+import { addToFavourite } from '../../api/favourite';
+import { addToUpvotes, deleteFromUpvotes } from '../../api/user';
 
 export default function PostItem({
   isListItem,
@@ -45,15 +42,19 @@ export default function PostItem({
 
   const upvote = React.useCallback(() => {
     post.points += 1;
-    updatePostInStorage(post.id, post);
-    setIsUpvoted(true);
-  }, [post]);
+    addToUpvotes(user.username, post.id).then(() => {
+      setIsUpvoted(true);
+    });
+    updatePost(post);
+  }, [user.username, post]);
 
   const unvote = React.useCallback(() => {
     post.points -= 1;
-    updatePostInStorage(post.id, post);
-    setIsUpvoted(false);
-  }, [post]);
+    deleteFromUpvotes(user.username, post.id).then(() => {
+      setIsUpvoted(false);
+    });
+    updatePost(post);
+  }, [user.username, post]);
 
   const hide = React.useCallback(() => {
     setIsHidden(true);
@@ -67,7 +68,7 @@ export default function PostItem({
   }, []);
 
   const markFavourite = React.useCallback(() => {
-    addToFavourites(user.username, post.id);
+    addToFavourite(user.username, post.id);
     setIsFavourite(true);
   }, [user.username, post.id]);
 

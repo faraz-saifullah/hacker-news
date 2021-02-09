@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../Context';
-import {
-  findTimeDifference,
-} from '../../utils/utilities';
-import { getUserByUsername, updateUser } from '../../api/user'
+import { findTimeDifference } from '../../utils/utilities';
+import { getUserByUsername, updateUser } from '../../api/user';
 import { CircularProgress } from '@material-ui/core';
 
 export default function UserProfile({ history, match }) {
@@ -18,7 +16,7 @@ export default function UserProfile({ history, match }) {
     getUserByUsername(username).then((user) => {
       setUser(user);
       setAboutText(user.about);
-    })
+    });
   }, [username]);
 
   const goToFavourites = React.useCallback(() => {
@@ -32,7 +30,7 @@ export default function UserProfile({ history, match }) {
   const changeAboutInfo = React.useCallback(() => {
     let newUser = { ...user };
     newUser.about = aboutText;
-    setIsUpdating(true)
+    setIsUpdating(true);
     updateUser(newUser.username, newUser).then((newUser) => {
       setIsUpdating(false);
     });
@@ -53,7 +51,9 @@ export default function UserProfile({ history, match }) {
         <div className="posts-list">
           <p>user:&ensp;&ensp;&emsp;{user.username}</p>
           <p>created:&nbsp;&nbsp;{timeDifference} ago</p>
-          {isUpdating? <CircularProgress /> : loggedInUser.username === user.username ? (
+          {isUpdating ? (
+            <CircularProgress />
+          ) : loggedInUser.username === user.username ? (
             <p>
               about:&nbsp;&nbsp;&nbsp;&ensp;
               <textarea

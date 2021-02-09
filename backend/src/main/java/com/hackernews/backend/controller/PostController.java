@@ -2,8 +2,10 @@ package com.hackernews.backend.controller;
 
 import com.hackernews.backend.model.Comment;
 import com.hackernews.backend.model.Post;
+import com.hackernews.backend.model.Upvote;
 import com.hackernews.backend.service.CommentService;
 import com.hackernews.backend.service.PostService;
+import com.hackernews.backend.service.UpvoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +18,12 @@ import java.util.NoSuchElementException;
 public class PostController {
     @Autowired
     private PostService postService;
+
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private UpvoteService upvoteService;
 
     //Get All Posts
     @CrossOrigin
@@ -68,5 +74,12 @@ public class PostController {
     @GetMapping("/posts/{postId}/threads")
     private ResponseEntity<List<Comment>> getAllThreadsOnPost(@PathVariable("postId") Integer postId) {
         return new ResponseEntity<>(commentService.getThreadsByPostId(postId), HttpStatus.OK);
+    }
+
+    //Get all upvotes on a post
+    @CrossOrigin
+    @GetMapping("/posts/{postId}/upvotes")
+    private ResponseEntity<List<Upvote>> getAllUpvotesOnPost(@PathVariable("postId") Integer postId) {
+        return new ResponseEntity<>(upvoteService.getUpvotesOnPost(postId), HttpStatus.OK);
     }
 }
