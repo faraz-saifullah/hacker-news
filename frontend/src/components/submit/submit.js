@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { createPost } from '../../utils/utilities';
+import { createPostBody } from '../../utils/utilities';
 import Context from '../../Context';
 import { createNewPost } from '../../api/post';
 
@@ -24,7 +24,7 @@ export default function Submit({ history }) {
   }, []);
 
   const addPost = React.useCallback(async () => {
-    let newPost = createPost(user.username, postTitle, postUrl, postText);
+    let newPost = createPostBody(user.username, postTitle, postUrl, postText);
     createNewPost(newPost);
     history.push('/');
   }, [history, postText, postTitle, postUrl, user.username]);

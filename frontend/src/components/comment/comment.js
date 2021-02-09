@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
   makeCommentBody,
   findTimeDifference,
-  updateCommentInStorage,
 } from '../../utils/utilities';
 import upvoteSymbol from '../../grayarrow.gif';
 import asteriskSymbol from '../../asterisk.png';
@@ -21,6 +20,7 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   const [threadLength, setThreadLength] = useState('');
   const [isUpvoted, setIsUpVoted] = useState(false);
 
+  //TODO: Implement upvoting for comments
   const updateReplyText = React.useCallback((event) => {
     setReplyText(event.target.value);
   }, []);
@@ -42,14 +42,12 @@ export default function Comment({ user, history, comment, isPartOfThread }) {
   const upvote = React.useCallback(() => {
     let newComment = { ...comment };
     newComment.points += 1;
-    updateCommentInStorage(newComment.id, newComment);
     setIsUpVoted(true);
   }, [comment]);
 
   const unVote = React.useCallback(() => {
     let newComment = { ...comment };
     newComment.points -= 1;
-    updateCommentInStorage(newComment.id, newComment);
     setIsUpVoted(false);
   }, [comment]);
 

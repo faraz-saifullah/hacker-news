@@ -1,6 +1,6 @@
 import React, { useContext, useState, Fragment } from 'react';
+import { createNewUser, getUserByUsername } from '../../api/user';
 import Context from '../../Context';
-import { createUser, findUser, getUserByUsername } from '../../utils/utilities';
 import { validateLoginInput } from './validation';
 
 export default function LoginForm() {
@@ -23,26 +23,22 @@ export default function LoginForm() {
 
   const login = React.useCallback(
     (username, password) => {
-      setTimeout(() => {
-        let userDetails = findUser(username, password);
+      getUserBy(username).then((userDetails) => {
         if (!userDetails) {
           return;
         }
         setUser(userDetails);
         window.localStorage.setItem('user', JSON.stringify(userDetails));
-      }, 1000);
+      });
     },
     [setUser],
   );
 
   const signup = React.useCallback(() => {
-    if (getUserByUsername(username)) {
-      setError('Username already exists');
-      return;
-    }
-    let userDetails = createUser(username, password);
-    setUser(userDetails);
-    window.localStorage.setItem('user', JSON.stringify(userDetails));
+    createNewUser({username, password}).then((userDetails) => {
+      setUser(userDetails);
+      window.localStorage.setItem('user', JSON.stringify(userDetails));
+    });
   }, [username, password, setUser]);
 
   const handleSubmit = React.useCallback(

@@ -20,6 +20,7 @@ export async function getUserByUsername(username) {
   return user.data;
 }
 
+
 export async function updateUser(username, newUser) {
   let allUsers = await axios.patch(`${BASE_URL}/users/${username}`, newUser, {
     headers: {
