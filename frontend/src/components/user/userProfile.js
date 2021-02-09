@@ -2,22 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import Context from '../../Context';
 import {
   findTimeDifference,
-  getUserByUsername,
-  updateUser,
 } from '../../utils/utilities';
+import { getUserByUsername, updateUser } from '../../api/user'
+import { CircularProgress } from '@material-ui/core';
 
 export default function UserProfile({ history, match }) {
   const [username] = useState(match.params.username);
   const [user, setUser] = useState({});
   const loggedInUser = useContext(Context).user;
   const [aboutText, setAboutText] = useState('');
+  const [isUpdating, setIsUpdating] = useState(false);
   const timeDifference = findTimeDifference(user.timeCreated);
-  //TODO: Link all the buttons to proper routes
 
   useEffect(() => {
-    setUser(getUserByUsername(username));
-    setAboutText(user.about);
-  }, [username, user.about]);
+    getUserByUsername(username).then((user) => {
+      setUser(user);
+      setAboutText(user.about);
+    })
+  }, [username]);
 
   const goToFavourites = React.useCallback(() => {
     history.push(`/favourites/${user.username}`);
@@ -30,7 +32,10 @@ export default function UserProfile({ history, match }) {
   const changeAboutInfo = React.useCallback(() => {
     let newUser = { ...user };
     newUser.about = aboutText;
-    updateUser(user, newUser);
+    setIsUpdating(true)
+    updateUser(newUser.username, newUser).then((newUser) => {
+      setIsUpdating(false);
+    });
     setUser(newUser);
   }, [user, aboutText]);
 
@@ -48,7 +53,7 @@ export default function UserProfile({ history, match }) {
         <div className="posts-list">
           <p>user:&ensp;&ensp;&emsp;{user.username}</p>
           <p>created:&nbsp;&nbsp;{timeDifference} ago</p>
-          {loggedInUser.username === user.username ? (
+          {isUpdating? <CircularProgress /> : loggedInUser.username === user.username ? (
             <p>
               about:&nbsp;&nbsp;&nbsp;&ensp;
               <textarea
