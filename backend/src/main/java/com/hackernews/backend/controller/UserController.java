@@ -32,12 +32,14 @@ public class UserController {
     private UpvoteService upvoteService;
 
     //Get all users
+    @CrossOrigin
     @GetMapping("/users")
     private ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
     //Get user with username
+    @CrossOrigin
     @GetMapping("/users/{username}")
     private ResponseEntity<User> getUserByUsername(@PathVariable("username") String username) {
         try {
@@ -49,12 +51,14 @@ public class UserController {
     }
 
     //Create new user
+    @CrossOrigin
     @PostMapping("/users")
     private ResponseEntity<User> createNewUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
     }
 
     //Update user which can be used to update password and about sections
+    @CrossOrigin
     @PatchMapping("/users/{username}")
     private ResponseEntity<User> updateUser(@RequestBody User user) {
         try {
@@ -65,6 +69,7 @@ public class UserController {
     }
 
     //get all posts by user
+    @CrossOrigin
     @GetMapping("/users/{username}/posts")
     private ResponseEntity<List<Post>> getAllPostsByUser(@PathVariable("username") String username) {
         try {
@@ -76,6 +81,7 @@ public class UserController {
     }
 
     //get all favourites by user
+    @CrossOrigin
     @GetMapping("/users/{username}/favs")
     private ResponseEntity<List<Favourite>> getAllFavouritesByUser(@PathVariable("username") String username) {
         try {
@@ -87,6 +93,7 @@ public class UserController {
     }
 
     //add to user's favourites
+    @CrossOrigin
     @PostMapping("/users/{username}/favs")
     private ResponseEntity<Favourite> addToUsersFavourites(@PathVariable("username") String username, @RequestBody Integer postId) {
         try {
@@ -97,6 +104,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{username}/favs")
     private ResponseEntity<Integer> removeFromFavourites(@PathVariable("username") String username, @RequestBody Integer postId) {
         try {
@@ -108,6 +116,7 @@ public class UserController {
     }
 
     //get all upvotes by user
+    @CrossOrigin
     @GetMapping("/users/{username}/upvotes")
     private ResponseEntity<List<Upvote>> getAllUpvotesByUser(@PathVariable("username") String username) {
         try {
@@ -119,6 +128,7 @@ public class UserController {
     }
 
     //add to user's favourites
+    @CrossOrigin
     @PostMapping("/users/{username}/upvotes")
     private ResponseEntity<Upvote> addToUsersUpvotes(@PathVariable("username") String username, @RequestBody Integer postId) {
         try {
@@ -129,6 +139,7 @@ public class UserController {
         }
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{username}/upvotes")
     private ResponseEntity<Integer> removeFromUpvotes(@PathVariable("username") String username, @RequestBody Integer postId) {
         try {

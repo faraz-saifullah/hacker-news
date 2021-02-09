@@ -32,4 +32,8 @@ public class CommentService {
     public List<Comment> getThreadsByPostId(Integer postId) {
         return commentRepo.findCommentByPostId(postId);
     }
+
+    public List<Comment> getCommentsByParentId(Integer parentId) {
+        return commentRepo.findCommentsByParentIdEquals(parentId);
+    }
 }
