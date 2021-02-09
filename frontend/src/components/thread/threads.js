@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { getThreadByParentId } from '../../api/comment';
 import Context from '../../Context';
-import { getThreadsByUser } from '../../utils/utilities';
 import CommentsList from '../comment/commentsList';
 
 export default function Comments({ match, history }) {
@@ -8,9 +8,10 @@ export default function Comments({ match, history }) {
   const { user } = useContext(Context);
 
   useEffect(() => {
-    let allComments = getThreadsByUser(user.username || '');
-    setComments(allComments);
-  }, [user.username]);
+    getThreadByParentId(4).then((allComments) => {
+      setComments(allComments);
+    });
+  }, []);
 
   return (
     <CommentsList history={history} commentsList={comments} isThread={false} />

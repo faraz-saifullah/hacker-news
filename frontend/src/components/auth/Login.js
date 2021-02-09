@@ -23,7 +23,7 @@ export default function LoginForm() {
 
   const login = React.useCallback(
     (username, password) => {
-      getUserBy(username).then((userDetails) => {
+      getUserByUsername(username).then((userDetails) => {
         if (!userDetails) {
           return;
         }
